@@ -1,59 +1,156 @@
-# Profile20
+# Balavenkatesh B - Professional Portfolio
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.18.
+A modern, minimalistic black and white portfolio website showcasing my experience as a Full Stack Developer.
 
-## Development server
+![Portfolio Preview](public/photo1.jpg)
 
-To start a local development server, run:
+## 🌐 Live Website
 
-```bash
-ng serve
-```
+Visit the live portfolio at: **[balavoffici.github.io](https://balavoffici.github.io)**
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+Automatically deployed via GitHub Actions on every push to the main branch.
 
-## Code scaffolding
+## 🚀 Features
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- **Minimalistic Design**: Clean black and white theme with professional aesthetics
+- **Responsive**: Fully responsive design that works on all devices
+- **Smooth Scrolling**: Seamless navigation between sections
+- **Interactive Elements**: Engaging hover effects and transitions
+- **SEO Optimized**: Meta tags and semantic HTML for better search engine visibility
+- **Performance**: Optimized with hot module replacement for fast development
+- **CI/CD**: Automated deployment to GitHub Pages using GitHub Actions
 
-```bash
-ng generate component component-name
-```
+## 📋 Sections
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+1. **Hero Section**: Eye-catching introduction with profile photo and key stats
+2. **About**: Professional summary and contact information
+3. **Experience**: Complete timeline including System Engineer at TCS and 3 roles at Mescope Solutions
+4. **Skills**: Visual representation of Angular, Node.js, MySQL and other technical skills
+5. **Projects**: Showcase of real projects (SSI, HIMS, Tour Tamilnadu, Food Bot)
+6. **Contact**: Multiple ways to get in touch
 
-```bash
-ng generate --help
-```
+## 🛠️ Technologies Used
 
-## Building
+- **Frontend Framework**: Angular 19.2.0
+- **Language**: TypeScript
+- **Styling**: CSS3 with minimalistic black & white theme
+- **Fonts**: Google Fonts (Inter)
+- **Icons**: SVG Icons
+- **Build Tool**: Angular CLI
+- **Server**: Express.js (for SSR)
 
-To build the project run:
+## 📦 Installation
 
-```bash
-ng build
-```
-
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
-```
-
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
+1. Clone the repository:
 
 ```bash
-ng e2e
+git clone <repository-url>
+cd profile_2.0
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+2. Install dependencies:
 
-## Additional Resources
+```bash
+npm install
+```
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+3. Start the development server:
+
+```bash
+npm start
+```
+
+4. Open your browser and navigate to:
+
+```
+http://localhost:4200
+```
+
+## 🏗️ Build
+
+To build the project for production:
+
+```bash
+npm run build
+```
+
+The build artifacts will be stored in the `dist/` directory.
+
+## 🚀 Deployment
+
+This portfolio is configured for automatic deployment to GitHub Pages using GitHub Actions.
+
+### Quick Deploy
+
+1. Create a repository named `balavoffici.github.io` on GitHub
+2. Push your code to the repository
+3. Enable GitHub Pages with "GitHub Actions" as the source
+4. Your site will be live at `https://balavoffici.github.io`
+
+For detailed deployment instructions, see **[DEPLOYMENT.md](DEPLOYMENT.md)**
+
+## 🎨 Theme
+
+This portfolio features a **minimalistic black and white theme**:
+
+- Primary color: `#000000` (Black)
+- Accent shades: `#333333`, `#666666`
+- Background tones: `#ffffff`, `#f7fafc`, `#e0e0e0`
+- Clean, professional aesthetic perfect for tech professionals
+
+### Customization
+
+Edit the profile data in `src/app/app.component.ts`:
+
+- Personal information (name, email, location, etc.)
+- Skills and proficiency levels
+- Work experience
+- Projects
+- Social media links
+
+### Replace Photo
+
+Replace `public/photo1.jpg` with your own professional photo.
+
+## 📱 Responsive Breakpoints
+
+- Desktop: 1024px and above
+- Tablet: 768px to 1023px
+- Mobile: Below 768px
+
+## 🌐 Browser Support
+
+- Chrome (latest)
+- Firefox (latest)
+- Safari (latest)
+- Edge (latest)
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+## 👨‍💻 About Me
+
+I'm Balavenkatesh B, a MEAN Stack Developer at Tata Consultancy Services with 6+ years of experience in building scalable web applications. I specialize in:
+
+- Angular & TypeScript
+- Node.js & Express.js
+- MySQL, MS SQL Server & MongoDB
+- HTML5 & CSS3
+- JavaScript
+- Research & Leadership
+- Full Stack Development
+
+## 📞 Contact
+
+- **Email**: balavenkatesh1997@gmail.com
+- **Phone**: +91 90957 24650 / +91 86674 90991
+- **Location**: Chennai, Tamil Nadu
+- **LinkedIn**: [linkedin.com/in/balavoffici](https://linkedin.com/in/balavoffici)
+- **GitHub**: [github.com/balavoffici](https://github.com/balavoffici)
+- **Instagram**: [instagram.com/balavoffici](https://instagram.com/balavoffici)
+- **WhatsApp**: [+91 86674 90991](https://wa.me/918667490991)
+
+---
+
+Built with ❤️ using Angular
