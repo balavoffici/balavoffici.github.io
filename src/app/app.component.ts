@@ -10,6 +10,7 @@ import { CommonModule } from '@angular/common';
 })
 export class AppComponent {
   title = 'Balavenkatesh';
+  currentYear = new Date().getFullYear();
 
   // Profile Data
   profile = {
