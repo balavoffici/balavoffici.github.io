@@ -19,6 +19,7 @@ export class AppComponent {
     experience: '6+ Years',
     email: 'balavenkatesh1997@gmail.com',
     phone: '+91 90957 24650',
+    mobile: '+91 86674 90991',
     location: 'Chennai, Tamil Nadu',
     photo: 'photo1.jpg',
     tagline:
