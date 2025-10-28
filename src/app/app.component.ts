@@ -203,6 +203,28 @@ export class AppComponent {
     },
   ];
 
+  // Education
+  education = [
+    {
+      degree: 'B.E. (Computer Science)',
+      institution: 'Mahendra Institute of Technology',
+      period: '2015 – 2019',
+      type: 'Bachelor',
+    },
+    {
+      degree: 'HSC',
+      institution: 'The Gugai Higher Secondary School',
+      period: '2014 – 2015',
+      type: 'Higher Secondary',
+    },
+    {
+      degree: 'SSLC',
+      institution: 'The Gugai Higher Secondary School',
+      period: '2012 – 2013',
+      type: 'Secondary',
+    },
+  ];
+
   // Social Links
   socialLinks = [
     { name: 'GitHub', icon: 'github', url: 'https://github.com/balavoffici' },
@@ -238,6 +260,7 @@ export class AppComponent {
       'home',
       'about',
       'experience',
+      'education',
       'skills',
       'projects',
       'contact',

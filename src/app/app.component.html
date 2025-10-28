@@ -10,6 +10,8 @@
         <li><a (click)="scrollToSection('about')" [class.active]="currentSection === 'about'">About</a></li>
         <li><a (click)="scrollToSection('experience')" [class.active]="currentSection === 'experience'">Experience</a>
         </li>
+        <li><a (click)="scrollToSection('education')" [class.active]="currentSection === 'education'">Education</a>
+        </li>
         <li><a (click)="scrollToSection('skills')" [class.active]="currentSection === 'skills'">Skills</a></li>
         <li><a (click)="scrollToSection('projects')" [class.active]="currentSection === 'projects'">Projects</a></li>
         <li><a (click)="scrollToSection('contact')" [class.active]="currentSection === 'contact'">Contact</a></li>
@@ -191,6 +193,39 @@
                 }
               </ul>
             </div>
+          </div>
+        </div>
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Education Section -->
+  <section id="education" class="education">
+    <div class="container">
+      <div class="section-header">
+        <h2 class="section-title">Education</h2>
+        <div class="title-underline"></div>
+      </div>
+      <div class="education-grid">
+        @for (edu of education; track edu.degree) {
+        <div class="education-card">
+          <div class="education-icon">
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
+              <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
+            </svg>
+          </div>
+          <div class="education-content">
+            <span class="education-period">{{ edu.period }}</span>
+            <h3 class="education-degree">{{ edu.degree }}</h3>
+            <p class="education-institution">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                <polyline points="9 22 9 12 15 12 15 22"></polyline>
+              </svg>
+              {{ edu.institution }}
+            </p>
           </div>
         </div>
         }
