@@ -114,7 +114,8 @@
       </div>
       <div class="hero-image">
         <div class="image-container">
-          <img [src]="profile.photo" [alt]="profile.name" class="profile-photo">
+          <img [src]="profile.photo" [alt]="profile.name" class="profile-photo" loading="eager" decoding="async"
+            fetchpriority="high" width="600" height="600">
           <div class="image-glow"></div>
         </div>
       </div>

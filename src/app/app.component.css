@@ -674,12 +674,19 @@
   height: 100%;
   object-fit: cover;
   border-radius: 50%;
-  border: 8px solid white;
-  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
   position: relative;
   z-index: 2;
-  animation: profileFloat 6s ease-in-out infinite, pulseRing 3s ease-in-out infinite;
+  animation: profileFloat 6s ease-in-out infinite;
   transition: transform 0.4s ease;
+
+  /* Image Optimization */
+  image-rendering: -webkit-optimize-contrast;
+  image-rendering: crisp-edges;
+  will-change: transform;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
 }
 
 @keyframes pulseRing {
