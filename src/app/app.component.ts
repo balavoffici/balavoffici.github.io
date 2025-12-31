@@ -15,7 +15,7 @@ export class AppComponent {
   // Profile Data
   profile = {
     name: 'Balavenkatesh B',
-    title: 'MEAN Stack Developer',
+    title: 'Full Stack Developer',
     experience: '6+ Years',
     email: 'balavenkatesh1997@gmail.com',
     phone: '+91 90957 24650',
