@@ -23,7 +23,7 @@ I'm Balavenkatesh B, a MEAN Stack Developer at Tata Consultancy Services with 6+
 ## 📞 Contact
 
 - **Email**: balavenkatesh1997@gmail.com
-- **Phone**: +91 90957 24650 / +91 86674 90991
+- **Phone**: +91 86674 90991
 - **Location**: Chennai, Tamil Nadu
 - **LinkedIn**: [linkedin.com/in/balavoffici](https://linkedin.com/in/balavoffici)
 - **GitHub**: [github.com/balavoffici](https://github.com/balavoffici)
