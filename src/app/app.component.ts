@@ -60,7 +60,7 @@ export class AppComponent {
     {
       title: 'System Engineer',
       company: 'Tata Consultancy Services',
-      period: 'Sep 2022 - Present · 3 yrs 2 mos',
+      period: this.calculateDuration('Sep 2022'),
       location: 'Chennai, Tamil Nadu (Hybrid)',
       responsibilities: [
         'Working as a system engineer handling Angular projects as a developer',
@@ -282,5 +282,34 @@ export class AppComponent {
         }
       }
     }
+  }
+  calculateDuration(startDate: string): string {
+    const start = new Date(startDate);
+    const now = new Date();
+    
+    let years = now.getFullYear() - start.getFullYear();
+    let months = now.getMonth() - start.getMonth() + 1;
+    
+    if (months < 0) {
+      years--;
+      months += 12;
+    }
+    
+    // Add 1 month to include the current month in the count if needed, 
+    // or keep as is for difference. Usually experience includes the current partial month?
+    // The user's example 'Sep 2022 - Present' with '3 yrs 2 mos' (assuming current date is roughly Nov 2025 based on the math)
+    // Sep 2022 to Sep 2025 is 3 years.
+    // Sep 2025 to Nov 2025 is 2 months.
+    // So simple difference seems correct.
+    
+    let duration = '';
+    if (years > 0) {
+      duration += `${years} yr${years > 1 ? 's' : ''} `;
+    }
+    if (months > 0) {
+      duration += `${months} mo${months > 1 ? 's' : ''}`;
+    }
+    
+    return `${startDate} - Present · ${duration.trim()}`;
   }
 }
