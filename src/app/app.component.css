@@ -2754,3 +2754,331 @@ section {
     -moz-osx-font-smoothing: grayscale;
   }
 }
+
+/* ========================================
+   ADDITIONAL RESPONSIVE OPTIMIZATIONS
+   ======================================== */
+
+/* Intermediate Tablet Size - 900px to 1024px */
+@media (min-width: 901px) and (max-width: 1024px) {
+  .container {
+    padding: 0 2rem;
+  }
+
+  .hero-name {
+    font-size: 3.5rem;
+  }
+
+  .hero-title {
+    font-size: 2rem;
+  }
+
+  .image-container {
+    width: 280px;
+    height: 280px;
+  }
+
+  .projects-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  .education-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* iPad Pro Portrait - 1024px */
+@media (min-width: 1024px) and (max-width: 1024px) and (orientation: portrait) {
+  .hero-content {
+    gap: 3rem;
+  }
+
+  .container {
+    max-width: 90%;
+  }
+}
+
+/* Common Tablet Sizes */
+@media (min-width: 768px) and (max-width: 834px) {
+  .container {
+    padding: 0 1.5rem;
+  }
+
+  .hero-name {
+    font-size: 3rem;
+  }
+
+  .hero-title {
+    font-size: 1.75rem;
+  }
+
+  .image-container {
+    width: 260px;
+    height: 260px;
+  }
+
+  .section-title {
+    font-size: 2.25rem;
+  }
+}
+
+/* iPhone 14 Pro Max, Galaxy S21+ and similar */
+@media (min-width: 414px) and (max-width: 428px) {
+  .container {
+    padding: 0 1.25rem;
+  }
+
+  .hero-name {
+    font-size: 2.25rem;
+  }
+
+  .image-container {
+    width: 240px;
+    height: 240px;
+  }
+
+  .btn {
+    font-size: 0.95rem;
+    padding: 0.95rem 1.75rem;
+  }
+}
+
+/* iPhone 12/13/14 Standard */
+@media (min-width: 390px) and (max-width: 413px) {
+  .container {
+    padding: 0 1.125rem;
+  }
+
+  .hero-name {
+    font-size: 2.15rem;
+  }
+
+  .image-container {
+    width: 230px;
+    height: 230px;
+  }
+}
+
+/* iPhone SE, 12 Mini, 13 Mini */
+@media (min-width: 375px) and (max-width: 389px) {
+  .hero-name {
+    font-size: 2rem;
+  }
+
+  .hero-title {
+    font-size: 1.35rem;
+  }
+
+  .image-container {
+    width: 220px;
+    height: 220px;
+  }
+
+  .section-title {
+    font-size: 1.85rem;
+  }
+}
+
+/* Very Small Devices - Galaxy Fold, etc */
+@media (max-width: 320px) {
+  .container {
+    padding: 0 0.625rem;
+  }
+
+  .hero-name {
+    font-size: 1.35rem;
+  }
+
+  .hero-title {
+    font-size: 1rem;
+  }
+
+  .image-container {
+    width: 180px;
+    height: 180px;
+  }
+
+  .stat-number {
+    font-size: 1.35rem;
+  }
+
+  .btn {
+    padding: 0.75rem 1.25rem;
+    font-size: 0.85rem;
+  }
+
+  .section-title {
+    font-size: 1.35rem;
+  }
+}
+
+/* Landscape Mode - Phones */
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero {
+    padding: 60px 0 30px;
+  }
+
+  .image-container {
+    width: 150px;
+    height: 150px;
+  }
+
+  .hero-name {
+    font-size: 2rem;
+  }
+
+  .hero-title {
+    font-size: 1.25rem;
+  }
+
+  .hero-stats {
+    gap: 1.5rem;
+  }
+
+  .stat-number {
+    font-size: 1.5rem;
+  }
+
+  section {
+    padding: 30px 0;
+  }
+}
+
+/* Ultra Wide Monitors - 2560px+ */
+@media (min-width: 2560px) {
+  .container {
+    max-width: 1800px;
+  }
+
+  .hero-name {
+    font-size: 5.5rem;
+  }
+
+  .hero-title {
+    font-size: 3rem;
+  }
+
+  .section-title {
+    font-size: 3.5rem;
+  }
+
+  .image-container {
+    width: 480px;
+    height: 480px;
+  }
+
+  .btn {
+    padding: 1.25rem 2.75rem;
+    font-size: 1.15rem;
+  }
+}
+
+/* Performance Optimizations for All Devices */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  .gradient-orb,
+  .hero-background {
+    animation: none !important;
+  }
+
+  .profile-photo {
+    animation: none !important;
+  }
+}
+
+/* Dark Mode Support */
+@media (prefers-color-scheme: dark) {
+  /* This can be expanded if you want to add dark mode support */
+}
+
+/* Container Fluid Optimization */
+@media (min-width: 320px) {
+  .container {
+    width: 100%;
+    margin: 0 auto;
+  }
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) and (pointer: coarse) {
+
+  /* Remove hover effects on touch devices */
+  .btn:hover,
+  .social-links a:hover,
+  .contact-method:hover {
+    transform: none;
+  }
+
+  /* Increase touch targets */
+  .btn,
+  .social-links a,
+  .nav-menu li a {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Better tap highlighting */
+  * {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+  }
+}
+
+/* Prevent text size adjustment on orientation change */
+@media screen and (orientation: portrait) {
+  html {
+    text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+  }
+}
+
+@media screen and (orientation: landscape) {
+  html {
+    text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+  }
+}
+
+/* Profile Image Responsive Scaling */
+@media (max-width: 1200px) {
+  .profile-photo {
+    object-fit: cover;
+    object-position: center;
+  }
+}
+
+/* Better Container Spacing Across All Sizes */
+@media (min-width: 1200px) and (max-width: 1439px) {
+  .container {
+    padding: 0 2.5rem;
+  }
+}
+
+@media (min-width: 1024px) and (max-width: 1199px) {
+  .container {
+    padding: 0 2rem;
+  }
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  .container {
+    padding: 0 1.75rem;
+  }
+}
+
+@media (min-width: 480px) and (max-width: 767px) {
+  .container {
+    padding: 0 1.25rem;
+  }
+}
+
+@media (max-width: 479px) {
+  .container {
+    padding: 0 1rem;
+  }
+}
