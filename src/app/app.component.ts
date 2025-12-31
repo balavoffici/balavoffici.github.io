@@ -61,7 +61,7 @@ export class AppComponent {
       title: 'System Engineer',
       company: 'Tata Consultancy Services',
       period: this.calculateDuration('Sep 2022'),
-      location: 'Chennai, Tamil Nadu (Hybrid)',
+      location: 'Chennai, Tamil Nadu',
       responsibilities: [
         'Working as a system engineer handling Angular projects as a developer',
         'Developing and maintaining enterprise-level web applications',
