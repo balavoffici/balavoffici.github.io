@@ -247,6 +247,16 @@ export class AppComponent {
   // Current section for scroll highlighting
   currentSection = 'home';
 
+  // Initial theme is applied by the inline script in index.html
+  toggleTheme() {
+    const root = document.documentElement;
+    const theme = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', theme);
+    try {
+      localStorage.setItem('theme', theme);
+    } catch {}
+  }
+
   scrollToSection(sectionId: string) {
     const element = document.getElementById(sectionId);
     if (element) {

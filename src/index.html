@@ -26,6 +26,22 @@
   <meta property="twitter:description"
     content="Senior MEAN Stack Developer with 6+ years of experience crafting scalable web applications.">
 
+  <!-- Apply saved or system theme before first paint -->
+  <script>
+    (function () {
+      var root = document.documentElement;
+      var media = window.matchMedia('(prefers-color-scheme: dark)');
+      function saved() {
+        try { return localStorage.getItem('theme'); } catch (e) { return null; }
+      }
+      var theme = saved();
+      root.setAttribute('data-theme', theme === 'light' || theme === 'dark' ? theme : media.matches ? 'dark' : 'light');
+      media.addEventListener('change', function (e) {
+        if (!saved()) root.setAttribute('data-theme', e.matches ? 'dark' : 'light');
+      });
+    })();
+  </script>
+
   <link rel="icon" type="image/x-icon" href="bala.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>

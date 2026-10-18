@@ -1,3 +1,60 @@
+/* Theme Tokens */
+:root {
+  color-scheme: light;
+  --bg: #ffffff;
+  --surface: #ffffff;
+  --surface-alt: #f7fafc;
+  --border: #e0e0e0;
+  --accent: #000000;
+  --accent-2: #1a1a1a;
+  --accent-3: #333333;
+  --on-accent: #ffffff;
+  --text-strong: #1a202c;
+  --text: #2d3748;
+  --text-secondary: #4a5568;
+  --text-muted: #718096;
+  --text-subtle: #666666;
+  --nav-bg: rgba(255, 255, 255, 0.85);
+  --nav-border: rgba(0, 0, 0, 0.05);
+  --footer-bg: #2d3748;
+  --scrollbar-thumb: #000000;
+  --scrollbar-thumb-hover: #333333;
+  --orb-1: #f5f5f5;
+  --orb-2: #e8e8e8;
+  --orb-3: #d5d5d5;
+  --orb-4: #f9f9f9;
+  --orb-5: #efefef;
+  --glow: #d0d0d0;
+}
+
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #0d0d10;
+  --surface: #16161b;
+  --surface-alt: #1c1c22;
+  --border: #2f2f36;
+  --accent: #ffffff;
+  --accent-2: #e5e5e5;
+  --accent-3: #bfbfbf;
+  --on-accent: #000000;
+  --text-strong: #f8fafc;
+  --text: #e2e8f0;
+  --text-secondary: #cbd5e1;
+  --text-muted: #94a3b8;
+  --text-subtle: #a3a3a3;
+  --nav-bg: rgba(13, 13, 16, 0.85);
+  --nav-border: rgba(255, 255, 255, 0.08);
+  --footer-bg: #050507;
+  --scrollbar-thumb: #3a3a42;
+  --scrollbar-thumb-hover: #52525b;
+  --orb-1: #1d1d22;
+  --orb-2: #26262c;
+  --orb-3: #2a2a31;
+  --orb-4: #18181c;
+  --orb-5: #202026;
+  --glow: #3a3a42;
+}
+
 /* Global Reset and Base Styles */
 * {
   margin: 0;
@@ -19,21 +76,22 @@ html {
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
-  color: #2d3748;
-  background-color: #ffffff;
+  color: var(--text);
+  background-color: var(--bg);
+  transition: background-color 0.3s ease, color 0.3s ease;
   line-height: 1.6;
   overflow-x: hidden;
 }
 
 /* Selection */
 ::selection {
-  background-color: #000000;
-  color: white;
+  background-color: var(--accent);
+  color: var(--on-accent);
 }
 
 ::-moz-selection {
-  background-color: #000000;
-  color: white;
+  background-color: var(--accent);
+  color: var(--on-accent);
 }
 
 /* Scrollbar Styling */
@@ -42,16 +100,16 @@ body {
 }
 
 ::-webkit-scrollbar-track {
-  background: #f7fafc;
+  background: var(--surface-alt);
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #000000;
+  background: var(--scrollbar-thumb);
   border-radius: 5px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #333333;
+  background: var(--scrollbar-thumb-hover);
 }
 
 /* Typography */
@@ -63,12 +121,12 @@ h5,
 h6 {
   font-weight: 700;
   line-height: 1.3;
-  color: #2d3748;
+  color: var(--text);
 }
 
 p {
   line-height: 1.7;
-  color: #4a5568;
+  color: var(--text-secondary);
 }
 
 a {
@@ -100,8 +158,21 @@ ol {
 /* Focus Styles */
 a:focus,
 button:focus {
-  outline: 2px solid #000000;
+  outline: 2px solid var(--accent);
   outline-offset: 2px;
+}
+
+/* Theme Toggle Icons */
+.theme-toggle .icon-sun {
+  display: none;
+}
+
+[data-theme="dark"] .theme-toggle .icon-sun {
+  display: block;
+}
+
+[data-theme="dark"] .theme-toggle .icon-moon {
+  display: none;
 }
 
 /* Utility Classes */
