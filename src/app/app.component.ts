@@ -1,317 +1,125 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  DOCUMENT,
+  DestroyRef,
+  afterNextRender,
+  inject,
+  signal,
+} from '@angular/core';
+import { IconComponent } from './icon.component';
+import {
+  education,
+  experience,
+  profile,
+  projects,
+  sections,
+  skillGroups,
+  socialLinks,
+} from './portfolio.data';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet],
+  imports: [IconComponent],
   templateUrl: './app.component.html',
-  changeDetection: ChangeDetectionStrategy.Eager,
+  changeDetection: ChangeDetectionStrategy.OnPush,
   styleUrl: './app.component.css',
 })
 export class AppComponent {
-  title = 'Balavenkatesh';
-  currentYear = new Date().getFullYear();
+  private readonly document = inject(DOCUMENT);
 
-  // Profile Data
-  profile = {
-    name: 'Balavenkatesh B',
-    title: 'Full Stack Developer',
-    experience: '6+ Years',
-    email: 'balavenkatesh1997@gmail.com',
-    mobile: '+91 86674 90991',
-    location: 'Chennai, Tamil Nadu',
-    photo: 'profile without bg.png',
-    tagline:
-      'Full Stack Developer specializing in Angular, Node.js, MongoDB & MySQL with expertise in building scalable web applications',
-    about: `Demonstrate proficiency in problem solving techniques using the computer and the analysis of complex problems and the synthesis of solutions to those problems. Experienced Full Stack Developer with over 6 years of expertise in building robust web applications using Angular, Node.js, MongoDB, MySQL, and MS SQL Server. Passionate about creating efficient, user-friendly solutions that streamline business operations and enhance user experiences.`,
-  };
+  readonly currentYear = new Date().getFullYear();
+  readonly profile = profile;
+  readonly experience = experience;
+  readonly projects = projects;
+  readonly education = education;
+  readonly skillGroups = skillGroups;
+  readonly socialLinks = socialLinks;
+  readonly sections = sections;
+  readonly techCount = skillGroups.reduce((total, group) => total + group.skills.length, 0);
+  readonly marquee = skillGroups.flatMap((group) => group.skills);
 
-  // Skills
-  skills = {
-    frontend: [
-      { name: 'Angular', level: 95 },
-      { name: 'HTML5', level: 95 },
-      { name: 'CSS3', level: 95 },
-      { name: 'Tailwind CSS', level: 85 },
-      { name: 'JavaScript', level: 90 },
-      { name: 'TypeScript', level: 90 },
-    ],
-    backend: [
-      { name: 'Node.js', level: 90 },
-      { name: 'Express.js', level: 85 },
-      { name: 'MySQL', level: 90 },
-      { name: 'MS SQL Server', level: 85 },
-      { name: 'MongoDB', level: 80 },
-      { name: 'RESTful APIs', level: 90 },
-    ],
-    tools: [
-      { name: 'Git/GitHub', level: 85 },
-      { name: 'GitHub Actions', level: 80 },
-      { name: 'VS Code', level: 95 },
-      { name: 'Postman', level: 85 },
-      { name: 'Swagger', level: 80 },
-      { name: 'NPM', level: 90 },
-    ],
-  };
+  readonly currentSection = signal('home');
+  readonly emailCopied = signal(false);
 
-  // Experience
-  experience = [
-    {
-      title: 'System Engineer',
-      company: 'Tata Consultancy Services',
-      period: this.calculateDuration('Sep 2022'),
-      location: 'Chennai, Tamil Nadu',
-      responsibilities: [
-        'Working as a system engineer handling Angular projects as a developer',
-        'Developing and maintaining enterprise-level web applications',
-        'Implementing solutions using Angular, Node.js, MongoDB, MySQL & MS SQL Server',
-        'Conducting research and implementing best practices',
-        'Collaborating with cross-functional teams to deliver high-quality solutions',
-      ],
-    },
-    {
-      title: 'Senior Software Developer',
-      company: 'Mescope Solutions',
-      period: 'Aug 2021 - Jul 2022 · 1 yr',
-      location: 'Salem, Tamil Nadu',
-      responsibilities: [
-        'Led development of full-fledged Angular, Node.js & MySQL projects',
-        'Demonstrated leadership in guiding development teams',
-        'Conducted research and implemented innovative solutions',
-        'Optimized application performance and database queries',
-        'Mentored junior developers and conducted code reviews',
-      ],
-    },
-    {
-      title: 'Junior Software Developer',
-      company: 'Mescope Solutions',
-      period: 'Nov 2019 - Jul 2021 · 1 yr 9 mos',
-      location: 'Salem, Tamil Nadu',
-      responsibilities: [
-        'Developed Angular, Node.js & MySQL projects',
-        'Built responsive user interfaces using Angular and TypeScript',
-        'Developed RESTful APIs using Node.js',
-        'Designed and implemented database schemas in MySQL',
-        'Conducted research to improve development processes',
-      ],
-    },
-    {
-      title: 'Software Trainee',
-      company: 'Mescope Solutions',
-      period: 'Aug 2019 - Oct 2019 · 3 mos',
-      location: 'Salem, Tamil Nadu',
-      responsibilities: [
-        'Completed training in full-stack web development',
-        'Learned Angular, Node.js, TypeScript, and MySQL',
-        'Built practice projects using HTML5, CSS3, and JavaScript',
-        'Gained hands-on experience with modern web technologies',
-        'Prepared for junior developer role',
-      ],
-    },
-  ];
+  constructor() {
+    const destroyRef = inject(DestroyRef);
 
-  // Projects
-  projects = [
-    {
-      title: 'SSI - Sales, Stock & Intake',
-      period: 'Nov 2022 - Present',
-      company: 'Tata Consultancy Services',
-      description:
-        'SSI enables weekly intake planning for merchandisers by accurately forecasting demand and effectively managing inventory levels. It facilitates supplier approval through clear communication and timely order placement, ensuring seamless intake processes that support efficient inventory management.',
-      technologies: [
-        'Angular',
-        'TypeScript',
-        'JavaScript',
-        'HTML5',
-        'CSS3',
-        'MongoDB',
-        'MS SQL Server',
-      ],
-      highlights: [
-        'Managed user interface using Angular',
-        'Ensured responsive and user-friendly experience',
-        'Weekly intake planning for merchandisers',
-        'Accurate demand forecasting and inventory management',
-      ],
-    },
-    {
-      title: 'HIMS - Hospital Information Management System',
-      period: 'Aug 2019 - Jul 2022',
-      company: 'Mescope Solutions',
-      description:
-        'Hospital Information Management System (HIMS) is a web application developed from scratch that manages the entire hospital through a single-window interface, integrating patient reports and records, pharmacy management, and asset tracking to streamline hospital operations efficiently.',
-      technologies: [
-        'Angular',
-        'Node.js',
-        'TypeScript',
-        'JavaScript',
-        'HTML5',
-        'CSS3',
-        'MySQL',
-      ],
-      highlights: [
-        'Built with Angular on front-end and Node.js on back-end',
-        'Single-window hospital management interface',
-        'Patient reports, pharmacy, and asset tracking',
-        'Seamless user-friendly experience',
-      ],
-    },
-    {
-      title: 'Tour Tamilnadu - Tourist Information Gallery',
-      period: 'Jan 2018 - Apr 2018',
-      company: 'Mahendra Institutions',
-      description:
-        'Tour Tamilnadu is a web application that showcases a wide range of tourist destinations across Tamil Nadu, providing users with the latest images and detailed information for popular locations. Built with Angular for frontend and Node.js for backend.',
-      technologies: [
-        'Angular',
-        'Node.js',
-        'TypeScript',
-        'JavaScript',
-        'HTML5',
-        'CSS3',
-        'MongoDB',
-      ],
-      highlights: [
-        'Developed backend architecture',
-        'Implemented core logic for seamless performance',
-        'Tourist destination showcase',
-        'Applied full-stack development skills',
-      ],
-    },
-    {
-      title: 'Food Bot - Online Food Selector',
-      period: 'Jul 2017 - Sep 2017',
-      company: 'Mahendra Institutions',
-      description:
-        'Food Bot is a web application featuring a smart chat interface that enables users to select food through a conversational experience. The front-end is built with Angular, while the back-end is developed in Node.js to ensure smooth, efficient, and error-free operations.',
-      technologies: [
-        'Angular',
-        'Node.js',
-        'TypeScript',
-        'JavaScript',
-        'HTML5',
-        'CSS3',
-        'MongoDB',
-      ],
-      highlights: [
-        'Designed and implemented back-end',
-        'Smart chat interface for food selection',
-        'Conversational user experience',
-        'Seamless front-end and back-end integration',
-      ],
-    },
-  ];
+    // Highlight the nav link of the section crossing the middle of the viewport
+    afterNextRender(() => {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          for (const entry of entries) {
+            if (entry.isIntersecting) {
+              this.currentSection.set(entry.target.id);
+            }
+          }
+        },
+        { rootMargin: '-45% 0px -50% 0px' },
+      );
 
-  // Education
-  education = [
-    {
-      degree: 'B.E. (Computer Science)',
-      institution: 'Mahendra Institute of Technology',
-      period: '2015 – 2019',
-      type: 'Bachelor',
-    },
-    {
-      degree: 'HSC',
-      institution: 'The Gugai Higher Secondary School',
-      period: '2014 – 2015',
-      type: 'Higher Secondary',
-    },
-    {
-      degree: 'SSLC',
-      institution: 'The Gugai Higher Secondary School',
-      period: '2012 – 2013',
-      type: 'Secondary',
-    },
-  ];
-
-  // Social Links
-  socialLinks = [
-    { name: 'GitHub', icon: 'github', url: 'https://github.com/balavoffici' },
-    {
-      name: 'LinkedIn',
-      icon: 'linkedin',
-      url: 'https://linkedin.com/in/balavoffici',
-    },
-    {
-      name: 'Instagram',
-      icon: 'instagram',
-      url: 'https://instagram.com/balavoffici',
-    },
-    {
-      name: 'WhatsApp',
-      icon: 'whatsapp',
-      url: 'https://wa.me/918667490991',
-    },
-  ];
-
-  // Current section for scroll highlighting
-  currentSection = 'home';
-
-  // Initial theme is applied by the inline script in index.html
-  toggleTheme() {
-    const root = document.documentElement;
-    const theme = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-    root.setAttribute('data-theme', theme);
-    try {
-      localStorage.setItem('theme', theme);
-    } catch {}
-  }
-
-  scrollToSection(sectionId: string) {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth' });
-    }
-  }
-
-  onScroll() {
-    const sections = [
-      'home',
-      'about',
-      'experience',
-      'education',
-      'skills',
-      'projects',
-      'contact',
-    ];
-    const scrollPosition = window.scrollY + 100;
-
-    for (const section of sections) {
-      const element = document.getElementById(section);
-      if (element) {
-        const offsetTop = element.offsetTop;
-        const offsetHeight = element.offsetHeight;
-
-        if (
-          scrollPosition >= offsetTop &&
-          scrollPosition < offsetTop + offsetHeight
-        ) {
-          this.currentSection = section;
-          break;
+      for (const section of this.sections) {
+        const element = this.document.getElementById(section.id);
+        if (element) {
+          observer.observe(element);
         }
       }
+
+      destroyRef.onDestroy(() => observer.disconnect());
+    });
+  }
+
+  scrollToSection(event: Event, sectionId: string) {
+    event.preventDefault();
+    this.document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
+
+    const menu = this.document.getElementById('mobile-nav');
+    if (menu?.matches(':popover-open')) {
+      menu.hidePopover();
     }
   }
-  calculateDuration(startDate: string): string {
-    const start = new Date(startDate);
-    const now = new Date();
-    
-    let years = now.getFullYear() - start.getFullYear();
-    let months = now.getMonth() - start.getMonth() + 1;
-    
-    if (months < 0) {
-      years--;
-      months += 12;
+
+  // Initial theme is applied by the inline script in index.html
+  toggleTheme(event: MouseEvent) {
+    const root = this.document.documentElement;
+    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    const apply = () => {
+      root.setAttribute('data-theme', next);
+      try {
+        localStorage.setItem('theme', next);
+      } catch {}
+    };
+
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (!this.document.startViewTransition || reduceMotion) {
+      apply();
+      return;
     }
-    
-    let duration = '';
-    if (years > 0) {
-      duration += `${years} yr${years > 1 ? 's' : ''} `;
+
+    // Reveal the new theme as a circle growing from the toggle button
+    root.style.setProperty('--vt-x', `${event.clientX}px`);
+    root.style.setProperty('--vt-y', `${event.clientY}px`);
+    this.document.startViewTransition(apply);
+  }
+
+  spotlight(event: PointerEvent) {
+    // The glow follows a cursor; touch scrolling over a card would only cause style writes
+    if (event.pointerType !== 'mouse') {
+      return;
     }
-    if (months > 0) {
-      duration += `${months} mo${months > 1 ? 's' : ''}`;
+    const card = event.currentTarget as HTMLElement;
+    const rect = card.getBoundingClientRect();
+    card.style.setProperty('--x', `${event.clientX - rect.left}px`);
+    card.style.setProperty('--y', `${event.clientY - rect.top}px`);
+  }
+
+  async copyEmail() {
+    try {
+      await navigator.clipboard.writeText(this.profile.email);
+      this.emailCopied.set(true);
+      setTimeout(() => this.emailCopied.set(false), 2000);
+    } catch {
+      window.location.href = `mailto:${this.profile.email}`;
     }
-    
-    return `${startDate} - Present · ${duration.trim()}`;
   }
 }

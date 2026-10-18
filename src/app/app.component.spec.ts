@@ -14,16 +14,17 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have the 'profile_2.0' title`, () => {
+  it('should render the name in the hero heading', async () => {
     const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('profile_2.0');
+    await fixture.whenStable();
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('h1')?.textContent).toContain('Balavenkatesh B');
   });
 
-  it('should render title', () => {
+  it('should render a card for every project', async () => {
     const fixture = TestBed.createComponent(AppComponent);
-    fixture.detectChanges();
+    await fixture.whenStable();
     const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, profile_2.0');
+    expect(compiled.querySelectorAll('.project-card').length).toBe(fixture.componentInstance.projects.length);
   });
 });

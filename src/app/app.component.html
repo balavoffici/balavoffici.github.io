@@ -1,452 +1,343 @@
-<div class="portfolio" (scroll)="onScroll()" (window:scroll)="onScroll()">
-  <!-- Navigation -->
-  <nav class="navbar">
-    <div class="container">
-      <div class="nav-brand">
-        <img [src]="profile.photo" [alt]="profile.name" class="nav-photo">
-        <h2>{{ profile.name }}</h2>
-      </div>
-      <ul class="nav-menu">
-        <li><a (click)="scrollToSection('home')" [class.active]="currentSection === 'home'">Home</a></li>
-        <li><a (click)="scrollToSection('about')" [class.active]="currentSection === 'about'">About</a></li>
-        <li><a (click)="scrollToSection('experience')" [class.active]="currentSection === 'experience'">Experience</a>
-        </li>
-        <li><a (click)="scrollToSection('education')" [class.active]="currentSection === 'education'">Education</a>
-        </li>
-        <li><a (click)="scrollToSection('skills')" [class.active]="currentSection === 'skills'">Skills</a></li>
-        <li><a (click)="scrollToSection('projects')" [class.active]="currentSection === 'projects'">Projects</a></li>
-        <li><a (click)="scrollToSection('contact')" [class.active]="currentSection === 'contact'">Contact</a></li>
+<div class="scroll-progress" aria-hidden="true"></div>
+
+<!-- Navigation -->
+<header class="header">
+  <div class="header-inner">
+    <a href="#home" class="brand" (click)="scrollToSection($event, 'home')">
+      <img [src]="profile.avatar" alt="" class="brand-photo" width="36" height="36">
+      <span>{{ profile.name }}</span>
+    </a>
+
+    <nav class="nav" aria-label="Primary">
+      <ul class="nav-links">
+        @for (section of sections; track section.id) {
+          <li>
+            <a [href]="'#' + section.id" [class.active]="currentSection() === section.id"
+              [attr.aria-current]="currentSection() === section.id ? 'true' : null"
+              (click)="scrollToSection($event, section.id)">{{ section.label }}</a>
+          </li>
+        }
+        <li class="nav-indicator" aria-hidden="true"></li>
       </ul>
-      <button type="button" class="theme-toggle" (click)="toggleTheme()" aria-label="Toggle dark mode"
+    </nav>
+
+    <div class="header-actions">
+      <button type="button" class="icon-btn theme-toggle" (click)="toggleTheme($event)" aria-label="Toggle dark mode"
         title="Toggle dark mode">
-        <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-          stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-        </svg>
-        <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-          stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
-          <circle cx="12" cy="12" r="5"></circle>
-          <path
-            d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42">
-          </path>
-        </svg>
+        <app-icon name="moon" class="icon-moon" />
+        <app-icon name="sun" class="icon-sun" />
+      </button>
+      <button type="button" class="icon-btn menu-btn" popovertarget="mobile-nav" aria-label="Open menu">
+        <app-icon name="menu" />
       </button>
     </div>
-  </nav>
+  </div>
+</header>
 
-  <!-- Hero Section -->
+<nav id="mobile-nav" class="mobile-nav" popover aria-label="Mobile">
+  <button type="button" class="icon-btn mobile-close" popovertarget="mobile-nav" popovertargetaction="hide"
+    aria-label="Close menu">
+    <app-icon name="close" />
+  </button>
+  <ul>
+    @for (section of sections; track section.id; let i = $index) {
+      <li [style.--i]="i">
+        <a [href]="'#' + section.id" [class.active]="currentSection() === section.id"
+          (click)="scrollToSection($event, section.id)">{{ section.label }}</a>
+      </li>
+    }
+  </ul>
+</nav>
+
+<main>
+  <!-- Hero -->
   <section id="home" class="hero">
-    <div class="hero-background">
-      <div class="gradient-orb orb-1"></div>
-      <div class="gradient-orb orb-2"></div>
-      <div class="gradient-orb orb-3"></div>
+    <div class="hero-bg" aria-hidden="true">
+      <div class="grid-pattern"></div>
+      <div class="aurora aurora-1"></div>
+      <div class="aurora aurora-2"></div>
+      <div class="aurora aurora-3"></div>
     </div>
+
     <div class="container hero-content">
       <div class="hero-text">
-        <p class="hero-greeting">Hello, I'm</p>
-        <h1 class="hero-name">{{ profile.name }}</h1>
-        <h2 class="hero-title">{{ profile.title }}</h2>
-        <p class="hero-tagline">{{ profile.tagline }}</p>
-        <div class="hero-stats">
-          <div class="stat">
-            <span class="stat-number">{{ profile.experience }}</span>
-            <span class="stat-label">Experience</span>
-          </div>
-          <div class="stat">
-            <span class="stat-number">{{ projects.length }}+</span>
-            <span class="stat-label">Projects</span>
-          </div>
-          <div class="stat">
-            <span class="stat-number">18+</span>
-            <span class="stat-label">Technologies</span>
-          </div>
-        </div>
-        <div class="hero-buttons">
-          <button class="btn btn-primary" (click)="scrollToSection('contact')">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-              <polyline points="22,6 12,13 2,6"></polyline>
-            </svg>
+        <p class="eyebrow-badge rise" style="--i: 0">
+          <span class="pulse-dot"></span>
+          {{ profile.title }} · {{ profile.location }}
+        </p>
+        <h1 class="hero-name rise" style="--i: 1">
+          <span class="hero-hello">Hi, I'm</span>
+          <span class="gradient-text">{{ profile.name }}</span>
+        </h1>
+        <p class="hero-tagline rise" style="--i: 2">{{ profile.tagline }}</p>
+
+        <div class="hero-actions rise" style="--i: 3">
+          <a href="#contact" class="btn btn-primary" (click)="scrollToSection($event, 'contact')">
             Get in Touch
-          </button>
-          <a href="/balavenkatesh_resume.pdf" download="Balavenkatesh_Resume.pdf" class="btn btn-resume">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-              <polyline points="7 10 12 15 17 10"></polyline>
-              <line x1="12" y1="15" x2="12" y2="3"></line>
-            </svg>
+            <app-icon name="arrow-right" class="btn-arrow" />
+          </a>
+          <a [href]="profile.resume" download="Balavenkatesh_Resume.pdf" class="btn btn-ghost">
+            <app-icon name="download" />
             Download Resume
           </a>
-          <button class="btn btn-secondary" (click)="scrollToSection('projects')">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
-            </svg>
-            View Projects
-          </button>
         </div>
-        <div class="social-links">
+
+        <ul class="social-row rise" style="--i: 4">
           @for (link of socialLinks; track link.name) {
-          <a [href]="link.url" target="_blank" rel="noopener noreferrer" [attr.aria-label]="link.name">
-            @if (link.icon === 'github') {
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-              <path
-                d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z" />
-            </svg>
-            }
-            @if (link.icon === 'linkedin') {
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-              <path
-                d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
-            </svg>
-            }
-            @if (link.icon === 'twitter') {
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-              <path
-                d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
-            </svg>
-            }
-            @if (link.icon === 'email') {
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-              <polyline points="22,6 12,13 2,6"></polyline>
-            </svg>
-            }
-            @if (link.icon === 'instagram') {
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-              <path
-                d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z" />
-            </svg>
-            }
-            @if (link.icon === 'whatsapp') {
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
-              <path
-                d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-            </svg>
-            }
-          </a>
+            <li>
+              <a [href]="link.url" target="_blank" rel="noopener noreferrer" class="icon-btn"
+                [attr.aria-label]="link.name" [title]="link.name">
+                <app-icon [name]="link.icon" />
+              </a>
+            </li>
           }
-        </div>
+        </ul>
       </div>
-      <div class="hero-image">
-        <div class="image-container">
-          <img [src]="profile.photo" [alt]="profile.name" class="profile-photo" loading="eager" decoding="async"
-            fetchpriority="high" width="600" height="600">
-          <div class="image-glow"></div>
+
+      <div class="hero-visual rise" style="--i: 2">
+        <div class="photo-frame">
+          <picture>
+            <source [srcset]="profile.photo.avif" type="image/avif">
+            <img [src]="profile.photo.jpg" [alt]="profile.name" class="photo" loading="eager" decoding="async"
+              fetchpriority="high" [width]="profile.photo.width" [height]="profile.photo.height">
+          </picture>
+        </div>
+        <div class="float-card float-card-1">
+          <strong>{{ profile.experience }}</strong>
+          <span>Experience</span>
+        </div>
+        <div class="float-card float-card-2">
+          <strong>{{ techCount }}+</strong>
+          <span>Technologies</span>
         </div>
       </div>
     </div>
-    <div class="scroll-indicator">
-      <div class="mouse"></div>
-      <p>Scroll Down</p>
+
+    <a href="#about" class="scroll-cue" (click)="scrollToSection($event, 'about')" aria-label="Scroll to About">
+      <span class="scroll-cue-mouse"></span>
+    </a>
+  </section>
+
+  <!-- Tech marquee -->
+  <div class="marquee" aria-label="Technologies I work with">
+    <ul class="marquee-track">
+      @for (tech of marquee; track tech) {
+        <li>{{ tech }}</li>
+      }
+    </ul>
+    <ul class="marquee-track" aria-hidden="true">
+      @for (tech of marquee; track tech) {
+        <li>{{ tech }}</li>
+      }
+    </ul>
+  </div>
+
+  <!-- About -->
+  <section id="about" class="section">
+    <div class="container">
+      <header class="section-header reveal">
+        <h2 class="section-title">Building software that <span class="gradient-text">just works</span>.</h2>
+      </header>
+
+      <div class="bento">
+        <figure class="card bento-photo reveal">
+          <picture>
+            <source [srcset]="profile.aboutPhoto.avif" type="image/avif">
+            <img [src]="profile.aboutPhoto.jpg" [alt]="'Portrait of ' + profile.name" loading="lazy" decoding="async"
+              [width]="profile.aboutPhoto.width" [height]="profile.aboutPhoto.height">
+          </picture>
+        </figure>
+        <article class="card bento-about reveal" (pointermove)="spotlight($event)">
+          <p class="card-label">About me</p>
+          <p class="about-text">{{ profile.about }}</p>
+          <ul class="about-meta">
+            <li><app-icon name="code" />{{ experience[0].title }} at {{ experience[0].company }}</li>
+            <li><app-icon name="pin" />{{ profile.location }}</li>
+          </ul>
+        </article>
+        <article class="card bento-stat reveal" (pointermove)="spotlight($event)">
+          <app-icon name="briefcase" class="card-icon" />
+          <strong class="stat-value">{{ profile.experience }}</strong>
+          <span class="stat-label">Professional experience</span>
+        </article>
+        <article class="card bento-stat reveal" (pointermove)="spotlight($event)">
+          <app-icon name="layers" class="card-icon" />
+          <strong class="stat-value">{{ projects.length }}+</strong>
+          <span class="stat-label">Featured projects</span>
+        </article>
+      </div>
     </div>
   </section>
 
-  <!-- About Section -->
-  <section id="about" class="about">
+  <!-- Experience -->
+  <section id="experience" class="section">
     <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">About Me</h2>
-        <div class="title-underline"></div>
-      </div>
-      <div class="about-content">
-        <div class="about-text">
-          <p class="about-description">{{ profile.about }}</p>
-          <div class="about-info">
-            <div class="info-item">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
-                <line x1="16" y1="2" x2="16" y2="6"></line>
-                <line x1="8" y1="2" x2="8" y2="6"></line>
-                <line x1="3" y1="10" x2="21" y2="10"></line>
-              </svg>
-              <div>
-                <span class="info-label">Experience</span>
-                <span class="info-value">{{ profile.experience }}</span>
-              </div>
-            </div>
-            <div class="info-item">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                <circle cx="12" cy="10" r="3"></circle>
-              </svg>
-              <div>
-                <span class="info-label">Location</span>
-                <span class="info-value">{{ profile.location }}</span>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
+      <header class="section-header reveal">
+        <h2 class="section-title">Where I've worked</h2>
+      </header>
 
-  <!-- Experience Section -->
-  <section id="experience" class="experience">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">Work Experience</h2>
-        <div class="title-underline"></div>
-      </div>
-      <div class="timeline">
-        @for (job of experience; track job.title; let i = $index) {
-        <div class="timeline-item" [class.left]="i % 2 === 0" [class.right]="i % 2 !== 0">
-          <div class="timeline-content">
-            <div class="timeline-marker"></div>
-            <div class="experience-card">
-              <span class="period">{{ job.period }}</span>
-              <h3 class="job-title">{{ job.title }}</h3>
-              <h4 class="company">{{ job.company }}</h4>
-              <p class="location">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                  <circle cx="12" cy="10" r="3"></circle>
-                </svg>
-                {{ job.location }}
+      <ol class="timeline">
+        @for (job of experience; track job.title) {
+          <li class="timeline-item reveal">
+            <span class="timeline-dot" aria-hidden="true"></span>
+            <article class="card timeline-card" (pointermove)="spotlight($event)">
+              <p class="mono-chip">{{ job.period }}</p>
+              <h3 class="card-title">{{ job.title }}</h3>
+              <p class="card-meta">
+                <strong>{{ job.company }}</strong>
+                <span class="meta-sep" aria-hidden="true">·</span>
+                <span class="meta-location">
+                  <app-icon name="pin" />
+                  {{ job.location }}
+                </span>
               </p>
-              <ul class="responsibilities">
-                @for (resp of job.responsibilities; track resp) {
-                <li>{{ resp }}</li>
+              <ul class="check-list">
+                @for (item of job.responsibilities; track item) {
+                  <li>{{ item }}</li>
                 }
               </ul>
-            </div>
-          </div>
-        </div>
+            </article>
+          </li>
         }
-      </div>
+      </ol>
     </div>
   </section>
 
-  <!-- Education Section -->
-  <section id="education" class="education">
+  <!-- Projects -->
+  <section id="projects" class="section">
     <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">Education</h2>
-        <div class="title-underline"></div>
-      </div>
-      <div class="education-grid">
-        @for (edu of education; track edu.degree) {
-        <div class="education-card">
-          <div class="education-icon">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M22 10v6M2 10l10-5 10 5-10 5z"></path>
-              <path d="M6 12v5c3 3 9 3 12 0v-5"></path>
-            </svg>
-          </div>
-          <div class="education-content">
-            <span class="education-period">{{ edu.period }}</span>
-            <h3 class="education-degree">{{ edu.degree }}</h3>
-            <p class="education-institution">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                <polyline points="9 22 9 12 15 12 15 22"></polyline>
-              </svg>
-              {{ edu.institution }}
-            </p>
-          </div>
-        </div>
-        }
-      </div>
-    </div>
-  </section>
+      <header class="section-header reveal">
+        <h2 class="section-title">Featured work</h2>
+      </header>
 
-  <!-- Skills Section -->
-  <section id="skills" class="skills">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">Technical Skills</h2>
-        <div class="title-underline"></div>
-      </div>
-      <div class="skills-grid">
-        <!-- Frontend Skills -->
-        <div class="skill-category">
-          <div class="category-header">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <polyline points="16 18 22 12 16 6"></polyline>
-              <polyline points="8 6 2 12 8 18"></polyline>
-            </svg>
-            <h3>Frontend Development</h3>
-          </div>
-          <div class="skills-list">
-            @for (skill of skills.frontend; track skill.name) {
-            <div class="skill-item">
-              <div class="skill-header">
-                <span class="skill-name">{{ skill.name }}</span>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-progress" [style.width.%]="skill.level"></div>
-              </div>
-            </div>
-            }
-          </div>
-        </div>
-
-        <!-- Backend Skills -->
-        <div class="skill-category">
-          <div class="category-header">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect>
-              <line x1="8" y1="21" x2="16" y2="21"></line>
-              <line x1="12" y1="17" x2="12" y2="21"></line>
-            </svg>
-            <h3>Backend Development</h3>
-          </div>
-          <div class="skills-list">
-            @for (skill of skills.backend; track skill.name) {
-            <div class="skill-item">
-              <div class="skill-header">
-                <span class="skill-name">{{ skill.name }}</span>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-progress" [style.width.%]="skill.level"></div>
-              </div>
-            </div>
-            }
-          </div>
-        </div>
-
-        <!-- Tools & Technologies -->
-        <div class="skill-category">
-          <div class="category-header">
-            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path
-                d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z">
-              </path>
-            </svg>
-            <h3>Tools & Technologies</h3>
-          </div>
-          <div class="skills-list">
-            @for (skill of skills.tools; track skill.name) {
-            <div class="skill-item">
-              <div class="skill-header">
-                <span class="skill-name">{{ skill.name }}</span>
-              </div>
-              <div class="skill-bar">
-                <div class="skill-progress" [style.width.%]="skill.level"></div>
-              </div>
-            </div>
-            }
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Projects Section -->
-  <section id="projects" class="projects">
-    <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">Featured Projects</h2>
-        <div class="title-underline"></div>
-      </div>
       <div class="projects-grid">
         @for (project of projects; track project.title) {
-        <div class="project-card">
-          <div class="project-icon">
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
-            </svg>
-          </div>
-          <div class="project-header">
-            <span class="project-period">{{ project.period }}</span>
-            <span class="project-company">{{ project.company }}</span>
-          </div>
-          <h3 class="project-title">{{ project.title }}</h3>
-          <p class="project-description">{{ project.description }}</p>
-          <div class="project-technologies">
-            @for (tech of project.technologies; track tech) {
-            <span class="tech-tag">{{ tech }}</span>
-            }
-          </div>
-          <div class="project-highlights">
-            <h4>Key Features:</h4>
-            <ul>
+          <article class="card project-card reveal" (pointermove)="spotlight($event)">
+            <div class="project-top">
+              <span class="mono-chip">{{ project.period }}</span>
+            </div>
+            <p class="project-company">{{ project.company }}</p>
+            <h3 class="card-title">{{ project.title }}</h3>
+            <p class="project-description">{{ project.description }}</p>
+            <ul class="check-list">
               @for (highlight of project.highlights; track highlight) {
-              <li>{{ highlight }}</li>
+                <li>{{ highlight }}</li>
               }
             </ul>
-          </div>
-        </div>
+            <ul class="tags">
+              @for (tech of project.technologies; track tech) {
+                <li>{{ tech }}</li>
+              }
+            </ul>
+          </article>
         }
       </div>
     </div>
   </section>
 
-  <!-- Contact Section -->
-  <section id="contact" class="contact">
+  <!-- Skills -->
+  <section id="skills" class="section">
     <div class="container">
-      <div class="section-header">
-        <h2 class="section-title">Get In Touch</h2>
-        <div class="title-underline"></div>
-      </div>
-      <div class="contact-content">
-        <div class="contact-info">
-          <h3>Get In Touch</h3>
-          <p>Feel free to reach out for any queries or to connect. I'm always happy to help!</p>
+      <header class="section-header reveal">
+        <h2 class="section-title">My toolkit</h2>
+      </header>
 
-          <div class="contact-methods">
-            <div class="contact-method">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
-                <polyline points="22,6 12,13 2,6"></polyline>
-              </svg>
-              <div>
-                <h4>Email</h4>
-                <a [href]="'mailto:' + profile.email">{{ profile.email }}</a>
-              </div>
-            </div>
-
-            <div class="contact-method">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path
-                  d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z">
-                </path>
-              </svg>
-              <div>
-                <h4>Phone</h4>
-                <a [href]="'tel:' + profile.mobile">{{ profile.mobile }}</a>
-              </div>
-            </div>
-
-            <div class="contact-method">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-                <circle cx="12" cy="10" r="3"></circle>
-              </svg>
-              <div>
-                <h4>Location</h4>
-                <p>{{ profile.location }}</p>
-              </div>
-            </div>
-
-            <div class="contact-method">
-              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                <rect x="2" y="9" width="4" height="12"></rect>
-                <circle cx="4" cy="4" r="2"></circle>
-              </svg>
-              <div>
-                <h4>Social Media</h4>
-                <div class="contact-social">
-                  @for (link of socialLinks; track link.name) {
-                  <a [href]="link.url" target="_blank" rel="noopener noreferrer">{{ link.name }}</a>
-                  }
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+      <div class="skills-grid">
+        @for (group of skillGroups; track group.title) {
+          <article class="card skill-card reveal" (pointermove)="spotlight($event)">
+            <span class="skill-icon"><app-icon [name]="group.icon" /></span>
+            <h3 class="card-title">{{ group.title }}</h3>
+            <ul class="tags tags-lg">
+              @for (skill of group.skills; track skill) {
+                <li>{{ skill }}</li>
+              }
+            </ul>
+          </article>
+        }
       </div>
     </div>
   </section>
 
-  <!-- Footer -->
-  <footer class="footer">
+  <!-- Education -->
+  <section id="education" class="section">
     <div class="container">
-      <div class="footer-content">
-        <p>&copy; {{ currentYear }} {{ profile.name }}. All rights reserved.</p>
+      <header class="section-header reveal">
+        <h2 class="section-title">Education</h2>
+      </header>
+
+      <div class="education-grid">
+        @for (edu of education; track edu.degree) {
+          <article class="card education-card reveal" (pointermove)="spotlight($event)">
+            <span class="skill-icon"><app-icon name="cap" /></span>
+            <p class="mono-chip">{{ edu.period }}</p>
+            <h3 class="card-title">{{ edu.degree }}</h3>
+            <p class="card-meta">{{ edu.institution }}</p>
+          </article>
+        }
       </div>
     </div>
-  </footer>
-</div>
+  </section>
 
-<router-outlet />
+  <!-- Contact -->
+  <section id="contact" class="section">
+    <div class="container">
+      <div class="contact-panel reveal">
+        <div class="contact-glow" aria-hidden="true"></div>
+        <h2 class="contact-title">Let's build something <span class="gradient-text">great together</span>.</h2>
+        <p class="contact-text">Feel free to reach out for any queries or to connect. I'm always happy to help!</p>
+
+        <div class="email-row">
+          <a [href]="'mailto:' + profile.email" class="btn btn-primary btn-lg">
+            <app-icon name="mail" />
+            {{ profile.email }}
+          </a>
+          <button type="button" class="btn btn-ghost btn-lg" (click)="copyEmail()" aria-live="polite">
+            @if (emailCopied()) {
+              <app-icon name="check" />
+              Copied!
+            } @else {
+              <app-icon name="copy" />
+              Copy email
+            }
+          </button>
+        </div>
+
+        <ul class="contact-details">
+          <li>
+            <a [href]="'tel:' + profile.mobile">
+              <app-icon name="phone" />
+              {{ profile.mobile }}
+            </a>
+          </li>
+          <li>
+            <app-icon name="pin" />
+            {{ profile.location }}
+          </li>
+        </ul>
+
+        <ul class="social-row social-row-center">
+          @for (link of socialLinks; track link.name) {
+            <li>
+              <a [href]="link.url" target="_blank" rel="noopener noreferrer" class="social-pill">
+                <app-icon [name]="link.icon" />
+                {{ link.name }}
+                <app-icon name="arrow-up-right" class="pill-arrow" />
+              </a>
+            </li>
+          }
+        </ul>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer-inner">
+    <p>&copy; {{ currentYear }} {{ profile.name }}. All rights reserved.</p>
+    <a href="#home" class="back-to-top" (click)="scrollToSection($event, 'home')">
+      Back to top
+      <app-icon name="arrow-up" />
+    </a>
+  </div>
+</footer>
+
