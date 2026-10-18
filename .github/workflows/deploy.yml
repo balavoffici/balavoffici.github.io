@@ -42,7 +42,8 @@ jobs:
   deploy:
     environment:
       name: github-pages
-      url: ${{ secrets.DEPLOY_URL }}
+      # secrets can't be used here; falls back to the URL the deploy step reports
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     needs: build
     steps:
