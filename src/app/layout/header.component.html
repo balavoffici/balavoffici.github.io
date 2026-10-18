@@ -1,0 +1,43 @@
+<div class="bar">
+  <a href="#home" class="brand" (click)="go($event, 'home')" aria-label="Back to top">
+    <img [src]="profile.avatar" alt="" width="36" height="36" class="brand-photo">
+    <span class="brand-name">{{ profile.name }}</span>
+  </a>
+
+  <nav class="nav" aria-label="Primary">
+    <ul class="nav-links">
+      @for (link of links; track link.id) {
+        <li>
+          <a [href]="'#' + link.id" [class.active]="current() === link.id" [attr.aria-current]="current() === link.id ? 'true' : null"
+            (click)="go($event, link.id)">{{ link.label }}</a>
+        </li>
+      }
+    </ul>
+    <span class="nav-indicator" aria-hidden="true"></span>
+  </nav>
+
+  <div class="actions">
+    <button type="button" class="icon-btn theme-toggle" (click)="toggleTheme($event)" aria-label="Toggle dark mode">
+      <app-icon name="sun" class="icon-sun" />
+      <app-icon name="moon" class="icon-moon" />
+    </button>
+    <a href="#contact" class="btn btn-primary talk" magnetic="0.25" (click)="go($event, 'contact')">Let's talk</a>
+    <button type="button" class="icon-btn menu-btn" popovertarget="menu" aria-label="Open menu">
+      <app-icon name="menu" />
+    </button>
+  </div>
+</div>
+
+<nav id="menu" class="menu" popover aria-label="Menu" (toggle)="onMenuToggle($event)">
+  <button type="button" class="icon-btn menu-close" popovertarget="menu" popovertargetaction="hide" aria-label="Close menu">
+    <app-icon name="close" />
+  </button>
+  <ul>
+    @for (link of links; track link.id; let i = $index) {
+      <li [style.--i]="i">
+        <a [href]="'#' + link.id" [class.active]="current() === link.id" (click)="go($event, link.id)">{{ link.label }}</a>
+      </li>
+    }
+  </ul>
+  <a class="menu-mail" [href]="'mailto:' + profile.email">{{ profile.email }}</a>
+</nav>

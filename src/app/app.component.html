@@ -1,343 +1,47 @@
-<div class="scroll-progress" aria-hidden="true"></div>
-
-<!-- Navigation -->
-<header class="header">
-  <div class="header-inner">
-    <a href="#home" class="brand" (click)="scrollToSection($event, 'home')">
-      <img [src]="profile.avatar" alt="" class="brand-photo" width="36" height="36">
-      <span>{{ profile.name }}</span>
-    </a>
-
-    <nav class="nav" aria-label="Primary">
-      <ul class="nav-links">
-        @for (section of sections; track section.id) {
-          <li>
-            <a [href]="'#' + section.id" [class.active]="currentSection() === section.id"
-              [attr.aria-current]="currentSection() === section.id ? 'true' : null"
-              (click)="scrollToSection($event, section.id)">{{ section.label }}</a>
-          </li>
-        }
-        <li class="nav-indicator" aria-hidden="true"></li>
-      </ul>
-    </nav>
-
-    <div class="header-actions">
-      <button type="button" class="icon-btn theme-toggle" (click)="toggleTheme($event)" aria-label="Toggle dark mode"
-        title="Toggle dark mode">
-        <app-icon name="moon" class="icon-moon" />
-        <app-icon name="sun" class="icon-sun" />
-      </button>
-      <button type="button" class="icon-btn menu-btn" popovertarget="mobile-nav" aria-label="Open menu">
-        <app-icon name="menu" />
-      </button>
+<!-- Opening titles: pure CSS, so they clear on their own even before/without JS -->
+<div class="intro" aria-hidden="true" (click)="skipIntro($event)">
+  <div class="curtain curtain-top"></div>
+  <div class="curtain curtain-bottom"></div>
+  <div class="titles">
+    <p class="kicker">Portfolio</p>
+    <p class="intro-name">
+      @for (letter of introLetters; track $index) {
+        <span [style.--i]="$index">{{ letter }}</span>
+      }
+    </p>
+    <div class="loader">
+      <span class="loader-line"></span>
+      <span class="count"></span>
     </div>
   </div>
-</header>
+</div>
 
-<nav id="mobile-nav" class="mobile-nav" popover aria-label="Mobile">
-  <button type="button" class="icon-btn mobile-close" popovertarget="mobile-nav" popovertargetaction="hide"
-    aria-label="Close menu">
-    <app-icon name="close" />
-  </button>
-  <ul>
-    @for (section of sections; track section.id; let i = $index) {
-      <li [style.--i]="i">
-        <a [href]="'#' + section.id" [class.active]="currentSection() === section.id"
-          (click)="scrollToSection($event, section.id)">{{ section.label }}</a>
-      </li>
-    }
-  </ul>
-</nav>
+<div class="progress" #progress aria-hidden="true"></div>
+
+<a class="skip-link" href="#about">Skip to content</a>
+
+<app-header />
 
 <main>
-  <!-- Hero -->
-  <section id="home" class="hero">
-    <div class="hero-bg" aria-hidden="true">
-      <div class="grid-pattern"></div>
-      <div class="aurora aurora-1"></div>
-      <div class="aurora aurora-2"></div>
-      <div class="aurora aurora-3"></div>
-    </div>
-
-    <div class="container hero-content">
-      <div class="hero-text">
-        <p class="eyebrow-badge rise" style="--i: 0">
-          <span class="pulse-dot"></span>
-          {{ profile.title }} · {{ profile.location }}
-        </p>
-        <h1 class="hero-name rise" style="--i: 1">
-          <span class="hero-hello">Hi, I'm</span>
-          <span class="gradient-text">{{ profile.name }}</span>
-        </h1>
-        <p class="hero-tagline rise" style="--i: 2">{{ profile.tagline }}</p>
-
-        <div class="hero-actions rise" style="--i: 3">
-          <a href="#contact" class="btn btn-primary" (click)="scrollToSection($event, 'contact')">
-            Get in Touch
-            <app-icon name="arrow-right" class="btn-arrow" />
-          </a>
-          <a [href]="profile.resume" download="Balavenkatesh_Resume.pdf" class="btn btn-ghost">
-            <app-icon name="download" />
-            Download Resume
-          </a>
-        </div>
-
-        <ul class="social-row rise" style="--i: 4">
-          @for (link of socialLinks; track link.name) {
-            <li>
-              <a [href]="link.url" target="_blank" rel="noopener noreferrer" class="icon-btn"
-                [attr.aria-label]="link.name" [title]="link.name">
-                <app-icon [name]="link.icon" />
-              </a>
-            </li>
-          }
-        </ul>
-      </div>
-
-      <div class="hero-visual rise" style="--i: 2">
-        <div class="photo-frame">
-          <picture>
-            <source [srcset]="profile.photo.avif" type="image/avif">
-            <img [src]="profile.photo.jpg" [alt]="profile.name" class="photo" loading="eager" decoding="async"
-              fetchpriority="high" [width]="profile.photo.width" [height]="profile.photo.height">
-          </picture>
-        </div>
-        <div class="float-card float-card-1">
-          <strong>{{ profile.experience }}</strong>
-          <span>Experience</span>
-        </div>
-        <div class="float-card float-card-2">
-          <strong>{{ techCount }}+</strong>
-          <span>Technologies</span>
-        </div>
-      </div>
-    </div>
-
-    <a href="#about" class="scroll-cue" (click)="scrollToSection($event, 'about')" aria-label="Scroll to About">
-      <span class="scroll-cue-mouse"></span>
-    </a>
-  </section>
-
-  <!-- Tech marquee -->
-  <div class="marquee" aria-label="Technologies I work with">
-    <ul class="marquee-track">
-      @for (tech of marquee; track tech) {
-        <li>{{ tech }}</li>
-      }
-    </ul>
-    <ul class="marquee-track" aria-hidden="true">
-      @for (tech of marquee; track tech) {
-        <li>{{ tech }}</li>
-      }
-    </ul>
-  </div>
-
-  <!-- About -->
-  <section id="about" class="section">
-    <div class="container">
-      <header class="section-header reveal">
-        <h2 class="section-title">Building software that <span class="gradient-text">just works</span>.</h2>
-      </header>
-
-      <div class="bento">
-        <figure class="card bento-photo reveal">
-          <picture>
-            <source [srcset]="profile.aboutPhoto.avif" type="image/avif">
-            <img [src]="profile.aboutPhoto.jpg" [alt]="'Portrait of ' + profile.name" loading="lazy" decoding="async"
-              [width]="profile.aboutPhoto.width" [height]="profile.aboutPhoto.height">
-          </picture>
-        </figure>
-        <article class="card bento-about reveal" (pointermove)="spotlight($event)">
-          <p class="card-label">About me</p>
-          <p class="about-text">{{ profile.about }}</p>
-          <ul class="about-meta">
-            <li><app-icon name="code" />{{ experience[0].title }} at {{ experience[0].company }}</li>
-            <li><app-icon name="pin" />{{ profile.location }}</li>
-          </ul>
-        </article>
-        <article class="card bento-stat reveal" (pointermove)="spotlight($event)">
-          <app-icon name="briefcase" class="card-icon" />
-          <strong class="stat-value">{{ profile.experience }}</strong>
-          <span class="stat-label">Professional experience</span>
-        </article>
-        <article class="card bento-stat reveal" (pointermove)="spotlight($event)">
-          <app-icon name="layers" class="card-icon" />
-          <strong class="stat-value">{{ projects.length }}+</strong>
-          <span class="stat-label">Featured projects</span>
-        </article>
-      </div>
-    </div>
-  </section>
-
-  <!-- Experience -->
-  <section id="experience" class="section">
-    <div class="container">
-      <header class="section-header reveal">
-        <h2 class="section-title">Where I've worked</h2>
-      </header>
-
-      <ol class="timeline">
-        @for (job of experience; track job.title) {
-          <li class="timeline-item reveal">
-            <span class="timeline-dot" aria-hidden="true"></span>
-            <article class="card timeline-card" (pointermove)="spotlight($event)">
-              <p class="mono-chip">{{ job.period }}</p>
-              <h3 class="card-title">{{ job.title }}</h3>
-              <p class="card-meta">
-                <strong>{{ job.company }}</strong>
-                <span class="meta-sep" aria-hidden="true">·</span>
-                <span class="meta-location">
-                  <app-icon name="pin" />
-                  {{ job.location }}
-                </span>
-              </p>
-              <ul class="check-list">
-                @for (item of job.responsibilities; track item) {
-                  <li>{{ item }}</li>
-                }
-              </ul>
-            </article>
-          </li>
-        }
-      </ol>
-    </div>
-  </section>
-
-  <!-- Projects -->
-  <section id="projects" class="section">
-    <div class="container">
-      <header class="section-header reveal">
-        <h2 class="section-title">Featured work</h2>
-      </header>
-
-      <div class="projects-grid">
-        @for (project of projects; track project.title) {
-          <article class="card project-card reveal" (pointermove)="spotlight($event)">
-            <div class="project-top">
-              <span class="mono-chip">{{ project.period }}</span>
-            </div>
-            <p class="project-company">{{ project.company }}</p>
-            <h3 class="card-title">{{ project.title }}</h3>
-            <p class="project-description">{{ project.description }}</p>
-            <ul class="check-list">
-              @for (highlight of project.highlights; track highlight) {
-                <li>{{ highlight }}</li>
-              }
-            </ul>
-            <ul class="tags">
-              @for (tech of project.technologies; track tech) {
-                <li>{{ tech }}</li>
-              }
-            </ul>
-          </article>
-        }
-      </div>
-    </div>
-  </section>
-
-  <!-- Skills -->
-  <section id="skills" class="section">
-    <div class="container">
-      <header class="section-header reveal">
-        <h2 class="section-title">My toolkit</h2>
-      </header>
-
-      <div class="skills-grid">
-        @for (group of skillGroups; track group.title) {
-          <article class="card skill-card reveal" (pointermove)="spotlight($event)">
-            <span class="skill-icon"><app-icon [name]="group.icon" /></span>
-            <h3 class="card-title">{{ group.title }}</h3>
-            <ul class="tags tags-lg">
-              @for (skill of group.skills; track skill) {
-                <li>{{ skill }}</li>
-              }
-            </ul>
-          </article>
-        }
-      </div>
-    </div>
-  </section>
-
-  <!-- Education -->
-  <section id="education" class="section">
-    <div class="container">
-      <header class="section-header reveal">
-        <h2 class="section-title">Education</h2>
-      </header>
-
-      <div class="education-grid">
-        @for (edu of education; track edu.degree) {
-          <article class="card education-card reveal" (pointermove)="spotlight($event)">
-            <span class="skill-icon"><app-icon name="cap" /></span>
-            <p class="mono-chip">{{ edu.period }}</p>
-            <h3 class="card-title">{{ edu.degree }}</h3>
-            <p class="card-meta">{{ edu.institution }}</p>
-          </article>
-        }
-      </div>
-    </div>
-  </section>
-
-  <!-- Contact -->
-  <section id="contact" class="section">
-    <div class="container">
-      <div class="contact-panel reveal">
-        <div class="contact-glow" aria-hidden="true"></div>
-        <h2 class="contact-title">Let's build something <span class="gradient-text">great together</span>.</h2>
-        <p class="contact-text">Feel free to reach out for any queries or to connect. I'm always happy to help!</p>
-
-        <div class="email-row">
-          <a [href]="'mailto:' + profile.email" class="btn btn-primary btn-lg">
-            <app-icon name="mail" />
-            {{ profile.email }}
-          </a>
-          <button type="button" class="btn btn-ghost btn-lg" (click)="copyEmail()" aria-live="polite">
-            @if (emailCopied()) {
-              <app-icon name="check" />
-              Copied!
-            } @else {
-              <app-icon name="copy" />
-              Copy email
-            }
-          </button>
-        </div>
-
-        <ul class="contact-details">
-          <li>
-            <a [href]="'tel:' + profile.mobile">
-              <app-icon name="phone" />
-              {{ profile.mobile }}
-            </a>
-          </li>
-          <li>
-            <app-icon name="pin" />
-            {{ profile.location }}
-          </li>
-        </ul>
-
-        <ul class="social-row social-row-center">
-          @for (link of socialLinks; track link.name) {
-            <li>
-              <a [href]="link.url" target="_blank" rel="noopener noreferrer" class="social-pill">
-                <app-icon [name]="link.icon" />
-                {{ link.name }}
-                <app-icon name="arrow-up-right" class="pill-arrow" />
-              </a>
-            </li>
-          }
-        </ul>
-      </div>
-    </div>
-  </section>
+  <app-hero />
+  <app-about />
+  <app-experience />
+  <app-projects />
+  <app-skills />
+  <app-education />
+  <app-contact />
 </main>
 
 <footer class="footer">
   <div class="container footer-inner">
-    <p>&copy; {{ currentYear }} {{ profile.name }}. All rights reserved.</p>
-    <a href="#home" class="back-to-top" (click)="scrollToSection($event, 'home')">
+    <p>© {{ year }} {{ profile.name }}. Built with Angular.</p>
+    <a href="#home" class="to-top" (click)="toTop($event)">
       Back to top
       <app-icon name="arrow-up" />
     </a>
   </div>
 </footer>
 
+@defer (on idle) {
+  <app-cursor />
+}

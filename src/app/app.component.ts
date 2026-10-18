@@ -3,123 +3,73 @@ import {
   Component,
   DOCUMENT,
   DestroyRef,
+  ElementRef,
   afterNextRender,
   inject,
-  signal,
+  viewChild,
 } from '@angular/core';
+import { ScrollEngine, prefersReducedMotion } from './core/motion';
+import { CursorComponent } from './fx/cursor.component';
 import { IconComponent } from './icon.component';
-import {
-  education,
-  experience,
-  profile,
-  projects,
-  sections,
-  skillGroups,
-  socialLinks,
-} from './portfolio.data';
+import { HeaderComponent } from './layout/header.component';
+import { profile } from './portfolio.data';
+import { AboutComponent } from './sections/about.component';
+import { ContactComponent } from './sections/contact.component';
+import { EducationComponent } from './sections/education.component';
+import { ExperienceComponent } from './sections/experience.component';
+import { HeroComponent } from './sections/hero.component';
+import { ProjectsComponent } from './sections/projects.component';
+import { SkillsComponent } from './sections/skills.component';
 
 @Component({
   selector: 'app-root',
-  imports: [IconComponent],
-  templateUrl: './app.component.html',
+  imports: [
+    IconComponent,
+    CursorComponent,
+    HeaderComponent,
+    HeroComponent,
+    AboutComponent,
+    ExperienceComponent,
+    ProjectsComponent,
+    SkillsComponent,
+    EducationComponent,
+    ContactComponent,
+  ],
   changeDetection: ChangeDetectionStrategy.OnPush,
+  templateUrl: './app.component.html',
   styleUrl: './app.component.css',
 })
 export class AppComponent {
   private readonly document = inject(DOCUMENT);
+  private readonly progress = viewChild.required<ElementRef<HTMLElement>>('progress');
 
-  readonly currentYear = new Date().getFullYear();
-  readonly profile = profile;
-  readonly experience = experience;
-  readonly projects = projects;
-  readonly education = education;
-  readonly skillGroups = skillGroups;
-  readonly socialLinks = socialLinks;
-  readonly sections = sections;
-  readonly techCount = skillGroups.reduce((total, group) => total + group.skills.length, 0);
-  readonly marquee = skillGroups.flatMap((group) => group.skills);
-
-  readonly currentSection = signal('home');
-  readonly emailCopied = signal(false);
+  protected readonly profile = profile;
+  protected readonly year = new Date().getFullYear();
+  protected readonly introLetters = [...profile.name];
 
   constructor() {
+    const engine = inject(ScrollEngine);
     const destroyRef = inject(DestroyRef);
 
-    // Highlight the nav link of the section crossing the middle of the viewport
     afterNextRender(() => {
-      const observer = new IntersectionObserver(
-        (entries) => {
-          for (const entry of entries) {
-            if (entry.isIntersecting) {
-              this.currentSection.set(entry.target.id);
-            }
-          }
-        },
-        { rootMargin: '-45% 0px -50% 0px' },
+      const bar = this.progress().nativeElement;
+      const root = this.document.documentElement;
+      const stop = engine.watch(
+        () => scrollY / Math.max(root.scrollHeight - innerHeight, 1),
+        (value) => bar.style.setProperty('--p', value.toFixed(4)),
       );
-
-      for (const section of this.sections) {
-        const element = this.document.getElementById(section.id);
-        if (element) {
-          observer.observe(element);
-        }
-      }
-
-      destroyRef.onDestroy(() => observer.disconnect());
+      destroyRef.onDestroy(stop);
     });
   }
 
-  scrollToSection(event: Event, sectionId: string) {
+  /** Click anywhere on the opening titles to jump straight to the page */
+  protected skipIntro(event: Event) {
+    (event.currentTarget as HTMLElement).classList.add('skip');
+    this.document.documentElement.setAttribute('data-intro', 'seen');
+  }
+
+  protected toTop(event: Event) {
     event.preventDefault();
-    this.document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
-
-    const menu = this.document.getElementById('mobile-nav');
-    if (menu?.matches(':popover-open')) {
-      menu.hidePopover();
-    }
-  }
-
-  // Initial theme is applied by the inline script in index.html
-  toggleTheme(event: MouseEvent) {
-    const root = this.document.documentElement;
-    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
-    const apply = () => {
-      root.setAttribute('data-theme', next);
-      try {
-        localStorage.setItem('theme', next);
-      } catch {}
-    };
-
-    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (!this.document.startViewTransition || reduceMotion) {
-      apply();
-      return;
-    }
-
-    // Reveal the new theme as a circle growing from the toggle button
-    root.style.setProperty('--vt-x', `${event.clientX}px`);
-    root.style.setProperty('--vt-y', `${event.clientY}px`);
-    this.document.startViewTransition(apply);
-  }
-
-  spotlight(event: PointerEvent) {
-    // The glow follows a cursor; touch scrolling over a card would only cause style writes
-    if (event.pointerType !== 'mouse') {
-      return;
-    }
-    const card = event.currentTarget as HTMLElement;
-    const rect = card.getBoundingClientRect();
-    card.style.setProperty('--x', `${event.clientX - rect.left}px`);
-    card.style.setProperty('--y', `${event.clientY - rect.top}px`);
-  }
-
-  async copyEmail() {
-    try {
-      await navigator.clipboard.writeText(this.profile.email);
-      this.emailCopied.set(true);
-      setTimeout(() => this.emailCopied.set(false), 2000);
-    } catch {
-      window.location.href = `mailto:${this.profile.email}`;
-    }
+    scrollTo({ top: 0, behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
   }
 }

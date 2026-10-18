@@ -12,8 +12,8 @@
   <meta name="keywords"
     content="MEAN Stack Developer, Full Stack Developer, MongoDB, Express, Angular, Node.js, Web Development, Balavenkatesh">
   <meta name="author" content="Balavenkatesh">
-  <meta name="theme-color" content="#f8f9fb" media="(prefers-color-scheme: light)">
-  <meta name="theme-color" content="#0b0c10" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#f4f5f9" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#05060a" media="(prefers-color-scheme: dark)">
 
   <!-- Open Graph / Facebook -->
   <meta property="og:type" content="website">
@@ -29,7 +29,7 @@
     content="Senior MEAN Stack Developer with 7+ years of experience crafting scalable web applications.">
   <meta property="twitter:image" content="https://balavoffici.github.io/images/portrait.jpg">
 
-  <!-- Apply saved or system theme before first paint -->
+  <!-- Before first paint: theme, `js` flag for scroll reveals, and opening titles once per visit -->
   <script>
     (function () {
       var root = document.documentElement;
@@ -42,8 +42,15 @@
       media.addEventListener('change', function (e) {
         if (!saved()) root.setAttribute('data-theme', e.matches ? 'dark' : 'light');
       });
+
+      root.classList.add('js');
+      try {
+        if (sessionStorage.getItem('intro')) root.setAttribute('data-intro', 'seen');
+        sessionStorage.setItem('intro', '1');
+      } catch (e) {}
     })();
   </script>
+  <link rel="preload" as="image" href="/images/portrait.avif" type="image/avif" fetchpriority="high">
 
   <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
   <link rel="icon" type="image/x-icon" href="favicon-v.ico">
