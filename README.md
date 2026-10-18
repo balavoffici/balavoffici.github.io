@@ -10,7 +10,7 @@ Visit the live portfolio at: **[balavoffici.github.io](https://balavoffici.githu
 
 ## 👨‍💻 About Me
 
-I'm Balavenkatesh B, a MEAN Stack Developer at Tata Consultancy Services with 6+ years of experience in building scalable web applications. I specialize in:
+I'm Balavenkatesh B, a MEAN Stack Developer at Tata Consultancy Services with 7+ years of experience in building scalable web applications. I specialize in:
 
 - Angular & TypeScript
 - Node.js & Express.js

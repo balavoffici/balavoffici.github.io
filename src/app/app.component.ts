@@ -16,14 +16,14 @@ export class AppComponent {
   profile = {
     name: 'Balavenkatesh B',
     title: 'Full Stack Developer',
-    experience: '6+ Years',
+    experience: '7+ Years',
     email: 'balavenkatesh1997@gmail.com',
     mobile: '+91 86674 90991',
     location: 'Chennai, Tamil Nadu',
     photo: 'profile without bg.png',
     tagline:
       'Full Stack Developer specializing in Angular, Node.js, MongoDB & MySQL with expertise in building scalable web applications',
-    about: `Demonstrate proficiency in problem solving techniques using the computer and the analysis of complex problems and the synthesis of solutions to those problems. Experienced Full Stack Developer with over 6 years of expertise in building robust web applications using Angular, Node.js, MongoDB, MySQL, and MS SQL Server. Passionate about creating efficient, user-friendly solutions that streamline business operations and enhance user experiences.`,
+    about: `Demonstrate proficiency in problem solving techniques using the computer and the analysis of complex problems and the synthesis of solutions to those problems. Experienced Full Stack Developer with over 7 years of expertise in building robust web applications using Angular, Node.js, MongoDB, MySQL, and MS SQL Server. Passionate about creating efficient, user-friendly solutions that streamline business operations and enhance user experiences.`,
   };
 
   // Skills
