@@ -1,11 +1,28 @@
-const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+const MONTHS = [
+  'Jan',
+  'Feb',
+  'Mar',
+  'Apr',
+  'May',
+  'Jun',
+  'Jul',
+  'Aug',
+  'Sep',
+  'Oct',
+  'Nov',
+  'Dec',
+];
 
 // `startDate` is "Mon YYYY". Parsed by hand: Safari's `new Date('Sep 2022')` is Invalid Date.
 export function calculateDuration(startDate: string, now = new Date()): string {
   const [month, year] = startDate.split(' ');
 
   // Inclusive of both the start and current month, like LinkedIn
-  const totalMonths = (now.getFullYear() - Number(year)) * 12 + now.getMonth() - MONTHS.indexOf(month) + 1;
+  const totalMonths =
+    (now.getFullYear() - Number(year)) * 12 +
+    now.getMonth() -
+    MONTHS.indexOf(month) +
+    1;
   const years = Math.floor(totalMonths / 12);
   const months = totalMonths % 12;
 
@@ -28,8 +45,18 @@ export const profile = {
   mobile: '+91 86674 90991',
   location: 'Chennai, Tamil Nadu',
   avatar: '/images/avatar.jpg',
-  photo: { avif: '/images/portrait.avif', jpg: '/images/portrait.jpg', width: 798, height: 1200 },
-  aboutPhoto: { avif: '/images/portrait-v.avif', jpg: '/images/portrait-v.jpg', width: 664, height: 1120 },
+  photo: {
+    avif: '/images/portrait.avif',
+    jpg: '/images/portrait.jpg',
+    width: 798,
+    height: 1200,
+  },
+  aboutPhoto: {
+    avif: '/images/portrait-v.avif',
+    jpg: '/images/portrait-v.jpg',
+    width: 664,
+    height: 1120,
+  },
   resume: '/balavenkatesh_resume.pdf',
   tagline:
     'Full Stack Developer specializing in Angular, Node.js, MongoDB & MySQL with expertise in building scalable web applications',
