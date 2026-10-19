@@ -17,7 +17,7 @@
         }
       </header>
 
-      <div class="track" #track>
+      <div class="track" #track tabindex="0" role="region" aria-label="Projects">
         @for (project of projects; track project.title) {
           <article class="project-card glass" tilt="5" reveal="up" [revealDelay]="$index * 90">
             <span class="glyph" aria-hidden="true">{{ project.glyph }}</span>

@@ -17,6 +17,7 @@ import { profile, sections } from '../portfolio.data';
   imports: [IconComponent, MagneticDirective],
   changeDetection: ChangeDetectionStrategy.OnPush,
   host: {
+    role: 'banner',
     '[class.tucked]': 'tucked()',
     '[class.scrolled]': 'scrolled()',
   },

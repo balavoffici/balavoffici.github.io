@@ -21,7 +21,8 @@
   }
 }
 
-:host(.tucked) {
+/* Stay visible while a keyboard user is tabbing through it */
+:host(.tucked:not(:focus-within)) {
   translate: 0 -140%;
 }
 

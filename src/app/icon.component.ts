@@ -50,10 +50,6 @@ import { ChangeDetectionStrategy, Component, input } from '@angular/core';
           <rect x="2" y="7" width="20" height="14" rx="2" />
           <path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" />
         }
-        @case ('layers') {
-          <path d="m12 2 10 5-10 5L2 7l10-5Z" />
-          <path d="m2 17 10 5 10-5M2 12l10 5 10-5" />
-        }
         @case ('code') {
           <path d="m16 18 6-6-6-6M8 6l-6 6 6 6" />
         }

@@ -194,11 +194,26 @@
 
 .frame {
   position: relative;
+  isolation: isolate;
   aspect-ratio: 4 / 5;
   padding: 2px;
+  overflow: hidden;
   border-radius: var(--radius-lg);
-  background: conic-gradient(from var(--angle), var(--brand), var(--brand-2), transparent 30%, transparent 60%, var(--brand-3), var(--brand));
   box-shadow: var(--shadow-glow);
+}
+
+/* Glowing border: an oversized conic gradient turning behind the photo. Rotating it with a
+   transform runs on the GPU; animating the gradient angle would repaint every frame */
+.frame::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  z-index: -1;
+  width: 160%;
+  aspect-ratio: 1;
+  translate: -50% -50%;
+  background: conic-gradient(var(--brand), var(--brand-2), transparent 30%, transparent 60%, var(--brand-3), var(--brand));
 }
 
 .frame picture {
@@ -314,7 +329,12 @@
 
 /* ─── Choreography (after the opening titles: --enter) ─── */
 @media (prefers-reduced-motion: no-preference) {
-  .copy > *,
+  /* No opacity: the copy paints at once behind the opening titles, so the largest paint isn't
+     held back until they clear. The curtains hide it until then anyway */
+  .copy > * {
+    animation: focus-in 1.2s var(--ease-out) backwards;
+  }
+
   .cue {
     animation: rise 1.2s var(--ease-out) backwards;
   }
@@ -357,7 +377,11 @@
   }
 
   .frame {
-    animation: frame-in 1.6s var(--ease-cine) calc(var(--enter) + 0.2s) backwards, spin 7s linear infinite;
+    animation: frame-in 1.6s var(--ease-cine) calc(var(--enter) + 0.2s) backwards;
+  }
+
+  .frame::before {
+    animation: spin 7s linear infinite;
   }
 
   .photo {
@@ -390,6 +414,13 @@
 
   .cue-line::after {
     animation: drip 2.2s var(--ease-cine) infinite;
+  }
+}
+
+@keyframes focus-in {
+  from {
+    translate: 0 30px;
+    filter: blur(10px);
   }
 }
 
@@ -429,7 +460,7 @@
 
 @keyframes spin {
   to {
-    --angle: 360deg;
+    rotate: 360deg;
   }
 }
 

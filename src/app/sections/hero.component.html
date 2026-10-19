@@ -75,15 +75,15 @@
       </div>
       <div class="orbit" aria-hidden="true"></div>
 
-      <div class="stat glass s1">
+      <div class="stat glass s1" role="img" [attr.aria-label]="years + '+ years experience'">
         <strong><span [countUp]="years" countAfterIntro>{{ years }}</span>+</strong>
         <span>Years experience</span>
       </div>
-      <div class="stat glass s2">
+      <div class="stat glass s2" role="img" [attr.aria-label]="techCount + '+ technologies'">
         <strong><span [countUp]="techCount" countAfterIntro>{{ techCount }}</span>+</strong>
         <span>Technologies</span>
       </div>
-      <div class="stat glass s3">
+      <div class="stat glass s3" role="img" [attr.aria-label]="projectCount + '+ featured projects'">
         <strong><span [countUp]="projectCount" countAfterIntro>{{ projectCount }}</span>+</strong>
         <span>Featured projects</span>
       </div>

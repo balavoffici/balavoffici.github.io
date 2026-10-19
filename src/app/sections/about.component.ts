@@ -90,14 +90,15 @@ import { experience, profile } from '../portfolio.data';
       letter-spacing: -0.02em;
     }
 
+    /* Unlit words use --text-3, which still meets contrast, so the paragraph stays readable throughout */
     .w {
-      opacity: clamp(0.14, calc(var(--lit) * var(--n) - var(--i) + 1), 1);
-      transition: opacity 0.15s linear;
+      color: color-mix(in oklab, var(--text) calc(clamp(0, var(--lit) * var(--n) - var(--i) + 1, 1) * 100%), var(--text-3));
+      transition: color 0.2s linear;
     }
 
     @media (prefers-reduced-motion: reduce) {
       .w {
-        opacity: 1;
+        color: var(--text);
       }
     }
 

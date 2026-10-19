@@ -68,12 +68,16 @@ import { profile, socialLinks } from '../portfolio.data';
       box-shadow: var(--shadow);
     }
 
-    /* Slowly turning conic light behind the copy */
+    /* Slowly turning conic light behind the copy (a rotating layer, so it stays on the GPU) */
     .aura {
       position: absolute;
-      inset: -60% -20%;
+      top: 50%;
+      left: 50%;
       z-index: -1;
-      background: conic-gradient(from var(--angle), transparent, color-mix(in oklab, var(--brand) 35%, transparent),
+      width: max(160%, 900px);
+      aspect-ratio: 1;
+      translate: -50% -50%;
+      background: conic-gradient(transparent, color-mix(in oklab, var(--brand) 35%, transparent),
           transparent 30%, color-mix(in oklab, var(--brand-2) 30%, transparent), transparent 60%,
           color-mix(in oklab, var(--brand-3) 25%, transparent), transparent);
       filter: blur(70px);
@@ -88,7 +92,7 @@ import { profile, socialLinks } from '../portfolio.data';
 
     @keyframes turn {
       to {
-        --angle: 360deg;
+        rotate: 360deg;
       }
     }
 

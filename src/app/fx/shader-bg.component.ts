@@ -242,12 +242,19 @@ function createProgram(gl: WebGLRenderingContext): WebGLProgram | null {
   return gl.getProgramParameter(program, gl.LINK_STATUS) ? program : null;
 }
 
-/** Any CSS colour (hex, oklch, …) → linear 0–1 RGB, by letting a 1px 2D canvas resolve it */
+let colorCtx: CanvasRenderingContext2D | null | undefined;
+
+/** Any CSS colour (hex, oklch, …) → 0–1 RGB, by letting a 1px 2D canvas resolve it */
 function toRgb(color: string): [number, number, number] {
-  const ctx = document.createElement('canvas').getContext('2d');
+  // willReadFrequently keeps the canvas on the CPU, so reading the pixel back doesn't stall the GPU
+  colorCtx ??= Object.assign(document.createElement('canvas'), { width: 1, height: 1 }).getContext('2d', {
+    willReadFrequently: true,
+  });
+  const ctx = colorCtx;
   if (!ctx) {
     return [0, 0, 0];
   }
+  ctx.clearRect(0, 0, 1, 1);
   ctx.fillStyle = color.trim() || '#000';
   ctx.fillRect(0, 0, 1, 1);
   const [r, g, b] = ctx.getImageData(0, 0, 1, 1).data;

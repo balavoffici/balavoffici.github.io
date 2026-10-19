@@ -24,20 +24,13 @@
               }
             ],
             "styles": [
+              "@fontsource-variable/geist/index.css",
+              "@fontsource-variable/geist-mono/index.css",
               "src/styles.css"
             ],
             "scripts": [],
             "server": "src/main.server.ts",
-            "outputMode": "server",
-            "ssr": {
-              "entry": "src/server.ts"
-            },
-            "security": {
-              "allowedHosts": [
-                "localhost",
-                "balavoffici.github.io"
-              ]
-            }
+            "outputMode": "static"
           },
           "configurations": {
             "production": {
