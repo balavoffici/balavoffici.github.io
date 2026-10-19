@@ -1,0 +1,237 @@
+.reel {
+  position: relative;
+}
+
+.pin {
+  padding: clamp(96px, 16vh, 180px) 0;
+}
+
+.head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  gap: 32px;
+  width: 100%;
+  max-width: calc(var(--max) + 2 * var(--gutter));
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+
+.meter {
+  display: none;
+  width: 200px;
+  flex-shrink: 0;
+  padding-bottom: 14px;
+}
+.counter {
+  font-family: var(--font-mono);
+  font-size: 13px;
+  letter-spacing: 0.1em;
+  color: var(--text-dim);
+  font-variant-numeric: tabular-nums;
+}
+.counter-now {
+  color: var(--amber);
+}
+.reel-progress {
+  height: 1px;
+  margin-top: 10px;
+  background: var(--line);
+}
+.reel-progress span {
+  display: block;
+  height: 100%;
+  background: var(--amber);
+  transform: scaleX(0);
+  transform-origin: left;
+}
+
+.track {
+  display: grid;
+  gap: 72px;
+  margin-top: clamp(48px, 7vw, 88px);
+  padding: 0 var(--gutter);
+}
+
+.panel article {
+  display: grid;
+  grid-template-columns: minmax(280px, 0.85fr) 1fr;
+  gap: clamp(28px, 4vw, 56px);
+  align-items: center;
+}
+
+/* ---------- Poster ---------- */
+.poster {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 440px;
+  aspect-ratio: 27 / 40;
+  padding: 26px;
+  border-radius: 10px;
+  overflow: hidden;
+  isolation: isolate;
+  background:
+    radial-gradient(120% 70% at 80% 10%, color-mix(in oklab, var(--tone-a) 70%, transparent), transparent 60%),
+    radial-gradient(90% 70% at 10% 100%, var(--tone-b), transparent 70%),
+    linear-gradient(160deg, #111316, #050506);
+  box-shadow:
+    0 40px 80px -30px rgb(0 0 0 / 0.8),
+    inset 0 0 0 1px rgb(255 255 255 / 0.08);
+}
+/* Fine halftone + line texture over the cover gradient */
+.poster::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background:
+    repeating-linear-gradient(0deg, rgb(0 0 0 / 0.18) 0 1px, transparent 1px 3px),
+    radial-gradient(rgb(255 255 255 / 0.08) 1px, transparent 1px) 0 0 / 6px 6px;
+  mix-blend-mode: overlay;
+}
+.poster-no {
+  position: absolute;
+  right: -0.08em;
+  bottom: 0.12em;
+  z-index: -1;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(200px, 26vw, 420px);
+  line-height: 0.8;
+  color: transparent;
+  -webkit-text-stroke: 1px rgb(255 255 255 / 0.22);
+}
+.poster-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgb(255 255 255 / 0.75);
+}
+.badge {
+  padding: 4px 9px;
+  border: 1px solid rgb(255 255 255 / 0.3);
+  border-radius: 999px;
+  white-space: nowrap;
+}
+.badge.live {
+  border-color: var(--amber);
+  color: var(--amber);
+}
+.poster-title {
+  font-family: var(--font-display);
+  font-weight: 400;
+  font-size: clamp(64px, 7.5vw, 120px);
+  line-height: 0.85;
+  letter-spacing: -0.03em;
+  text-shadow: 0 10px 40px rgb(0 0 0 / 0.5);
+}
+.poster-sub {
+  margin-top: 10px;
+  font-size: 15px;
+  color: rgb(255 255 255 / 0.85);
+}
+.poster-credits {
+  padding-top: 16px;
+  border-top: 1px solid rgb(255 255 255 / 0.2);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  line-height: 1.7;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: rgb(255 255 255 / 0.6);
+}
+.poster-credits span {
+  display: block;
+  color: rgb(255 255 255 / 0.9);
+}
+
+/* ---------- Details ---------- */
+.period {
+  font-family: var(--font-mono);
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--amber);
+}
+.desc {
+  margin-top: 16px;
+  font-size: clamp(17px, 1.4vw, 20px);
+  line-height: 1.55;
+  color: var(--text);
+}
+.highlights {
+  display: grid;
+  gap: 8px;
+  margin-top: 24px;
+}
+.highlights li {
+  display: flex;
+  gap: 12px;
+  color: var(--text-dim);
+  font-size: 15px;
+}
+.highlights li::before {
+  content: '✦';
+  color: var(--amber);
+  font-size: 11px;
+  line-height: 2.2;
+}
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 28px;
+}
+
+/* ---------- Horizontal scroller (desktop, motion allowed) ---------- */
+@media (min-width: 960px) and (prefers-reduced-motion: no-preference) {
+  .meter {
+    display: block;
+  }
+  .pin {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: 100svh;
+    padding: calc(var(--header-h) + 8px) 0 32px;
+    overflow: hidden;
+  }
+  .track {
+    display: flex;
+    gap: 8vw;
+    width: max-content;
+    margin-top: clamp(24px, 4vh, 48px);
+    /* First poster lines up with the scene heading on wide screens */
+    padding: 0 12vw 0 calc(max(0px, (100vw - var(--max)) / 2 - var(--gutter)) + var(--gutter));
+  }
+  .panel {
+    width: min(82vw, 1120px);
+  }
+  .panel article {
+    grid-template-columns: auto 1fr;
+  }
+  /* Height leads so every cover keeps its ratio at any viewport */
+  .poster {
+    width: auto;
+    max-width: none;
+    height: min(62svh, 640px);
+  }
+}
+
+@media (max-width: 959px) {
+  .head {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .panel article {
+    grid-template-columns: 1fr;
+  }
+}

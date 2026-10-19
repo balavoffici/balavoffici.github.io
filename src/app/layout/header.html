@@ -1,0 +1,54 @@
+<header class="bar">
+  <a class="brand" href="#home" (click)="go($event, 'home')" aria-label="{{ profile.name }} — back to top">
+    <img [src]="profile.avatar" alt="" width="36" height="36" />
+    <span class="brand-name">{{ profile.name }}</span>
+  </a>
+
+  <nav class="nav" aria-label="Primary">
+    @for (s of sections.slice(1); track s.id; let i = $index) {
+      <a
+        [href]="'#' + s.id"
+        [class.active]="active() === s.id"
+        [attr.aria-current]="active() === s.id ? 'location' : null"
+        (click)="go($event, s.id)"
+      >
+        <span class="num">{{ i + 1 | number: '2.0-0' }}</span>{{ s.label }}
+      </a>
+    }
+  </nav>
+
+  @if (time()) {
+    <p class="hud">
+      <span class="pulse" aria-hidden="true"></span>
+      <span class="city">Chennai</span>
+      <time>{{ time() }} IST</time>
+    </p>
+  }
+
+  <button
+    type="button"
+    class="menu-btn"
+    appMagnetic
+    [attr.aria-expanded]="menuOpen()"
+    aria-controls="mobile-menu"
+    [attr.aria-label]="menuOpen() ? 'Close menu' : 'Open menu'"
+    (click)="toggleMenu()"
+  >
+    <app-icon [name]="menuOpen() ? 'close' : 'menu'" />
+  </button>
+
+  <div class="progress" aria-hidden="true"><span #progress></span></div>
+</header>
+
+<div id="mobile-menu" class="overlay" #overlay [attr.inert]="menuOpen() ? null : ''">
+  <ul>
+    @for (s of sections.slice(1); track s.id; let i = $index) {
+      <li>
+        <a #menuLink [href]="'#' + s.id" (click)="go($event, s.id)">
+          <span class="num">{{ i + 1 | number: '2.0-0' }}</span>{{ s.label }}
+        </a>
+      </li>
+    }
+  </ul>
+  <a class="overlay-mail" [href]="'mailto:' + profile.email">{{ profile.email }}</a>
+</div>

@@ -1,0 +1,52 @@
+<section id="projects" class="reel" #root aria-labelledby="projects-title">
+  <div class="pin">
+    <div class="head">
+      <div>
+        <h2 class="scene-title" id="projects-title" appReveal="chars">Selected <em>projects</em></h2>
+      </div>
+      <div class="meter" aria-hidden="true">
+        <p class="counter"><span class="counter-now">01</span> / {{ reels.length | number: '2.0-0' }}</p>
+        <div class="reel-progress"><span></span></div>
+      </div>
+    </div>
+
+    <ol class="track">
+      @for (p of reels; track p.title; let i = $index) {
+        <li class="panel">
+          <article>
+            <div class="poster" [style.--tone-a]="p.tone.a" [style.--tone-b]="p.tone.b">
+              <span class="poster-no" aria-hidden="true">{{ i + 1 | number: '2.0-0' }}</span>
+              <p class="poster-top">
+                <span>{{ p.company }}</span>
+                <span class="badge" [class.live]="p.current">{{ p.current ? 'Ongoing' : 'Completed' }}</span>
+              </p>
+              <div class="poster-body">
+                <h3 class="poster-title">{{ p.short }}</h3>
+                <p class="poster-sub">{{ p.subtitle }}</p>
+              </div>
+              <p class="poster-credits">
+                <span>Built with</span>
+                {{ p.technologies.join(' · ') }}
+              </p>
+            </div>
+
+            <div class="details">
+              <p class="period">{{ p.period }}</p>
+              <p class="desc">{{ p.description }}</p>
+              <ul class="highlights">
+                @for (h of p.highlights; track h) {
+                  <li>{{ h }}</li>
+                }
+              </ul>
+              <ul class="chips" aria-label="Technologies">
+                @for (t of p.technologies; track t) {
+                  <li class="chip">{{ t }}</li>
+                }
+              </ul>
+            </div>
+          </article>
+        </li>
+      }
+    </ol>
+  </div>
+</section>

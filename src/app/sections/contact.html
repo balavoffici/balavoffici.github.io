@@ -1,0 +1,58 @@
+<section id="contact" class="scene" #root aria-labelledby="contact-title">
+  <div class="container">
+    <h2 class="headline" id="contact-title" appReveal="words">Let’s build something <em>great</em> together.</h2>
+
+    <div class="grid">
+      <div class="primary" appReveal>
+        <p class="label">Email</p>
+        <a class="email" [href]="'mailto:' + profile.email" data-cursor="Email">{{ profile.email }}</a>
+        <div class="actions">
+          <a class="btn btn-primary" [href]="'mailto:' + profile.email" appMagnetic>
+            Start a conversation <app-icon name="arrow-up-right" />
+          </a>
+          <button type="button" class="btn btn-ghost" appMagnetic (click)="copyEmail()">
+            <app-icon [name]="copied() ? 'check' : 'copy'" />
+            {{ copied() ? 'Copied' : 'Copy email' }}
+          </button>
+          <span class="sr-only" aria-live="polite">{{ copied() ? 'Email address copied to clipboard' : '' }}</span>
+        </div>
+      </div>
+
+      <dl class="details" appReveal [revealDelay]="0.15">
+        <div>
+          <dt><app-icon name="phone" />Phone</dt>
+          <dd><a [href]="'tel:' + profile.mobile.replaceAll(' ', '')">{{ profile.mobile }}</a></dd>
+        </div>
+        <div>
+          <dt><app-icon name="pin" />Location</dt>
+          <dd>{{ profile.location }}</dd>
+        </div>
+        <div>
+          <dt><app-icon name="mail" />Résumé</dt>
+          <dd><a [href]="profile.resume" download>Download PDF</a></dd>
+        </div>
+      </dl>
+    </div>
+
+    <ul class="socials">
+      @for (s of socials; track s.name) {
+        <li>
+          <a class="social" [href]="s.url" target="_blank" rel="noopener noreferrer" [attr.aria-label]="s.name" [appMagnetic]="0.5">
+            <app-icon [name]="s.icon" />
+          </a>
+        </li>
+      }
+    </ul>
+  </div>
+
+  <footer class="footer">
+    <p class="wordmark" aria-hidden="true">{{ profile.name }}</p>
+    <div class="footer-row">
+      <p>© {{ year }} {{ profile.name }}</p>
+      <p>Built with Angular, GSAP &amp; WebGL</p>
+      <a class="top" href="#home" (click)="$event.preventDefault(); motion.scrollTo('#home')" appMagnetic>
+        <app-icon name="arrow-up-right" /> Back to top
+      </a>
+    </div>
+  </footer>
+</section>

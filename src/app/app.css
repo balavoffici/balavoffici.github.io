@@ -1,0 +1,9 @@
+main {
+  position: relative;
+  z-index: 2;
+  /* Off-screen start states (cards swinging in from the side) would otherwise
+     widen the layout viewport on mobile; body-level clipping propagates to
+     the viewport and doesn't stop it */
+  overflow-x: clip;
+}
+

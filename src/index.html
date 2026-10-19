@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Balavenkatesh B · Full Stack Developer (Angular, Node.js) · Chennai</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta
+      name="description"
+      content="Balavenkatesh B is a Full Stack (MEAN) Developer in Chennai with 7+ years of experience building scalable web applications with Angular, Node.js, MongoDB and SQL."
+    />
+    <meta name="author" content="Balavenkatesh B" />
+    <link rel="canonical" href="https://balavoffici.github.io/" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content="#060708" />
+
+    <!-- Link previews (WhatsApp, LinkedIn, Facebook, X) -->
+    <meta property="og:type" content="profile" />
+    <meta property="og:site_name" content="Balavenkatesh B" />
+    <meta property="og:url" content="https://balavoffici.github.io/" />
+    <meta property="og:title" content="Balavenkatesh B · Full Stack Developer" />
+    <meta
+      property="og:description"
+      content="Full Stack (MEAN) Developer with 7+ years of experience crafting scalable web applications with Angular and Node.js."
+    />
+    <meta property="og:image" content="https://balavoffici.github.io/images/portrait.jpg" />
+    <meta property="og:image:width" content="798" />
+    <meta property="og:image:height" content="1200" />
+    <meta property="og:image:alt" content="Portrait of Balavenkatesh B" />
+    <meta property="og:locale" content="en_IN" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Balavenkatesh B · Full Stack Developer" />
+    <meta
+      name="twitter:description"
+      content="Full Stack (MEAN) Developer with 7+ years of experience crafting scalable web applications with Angular and Node.js."
+    />
+    <meta name="twitter:image" content="https://balavoffici.github.io/images/portrait.jpg" />
+
+    <!-- Structured data, so search engines can show a profile result -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Balavenkatesh B",
+        "jobTitle": "Full Stack Developer",
+        "url": "https://balavoffici.github.io/",
+        "image": "https://balavoffici.github.io/images/portrait.jpg",
+        "email": "mailto:balavenkatesh1997@gmail.com",
+        "worksFor": { "@type": "Organization", "name": "Tata Consultancy Services" },
+        "alumniOf": { "@type": "CollegeOrUniversity", "name": "Mahendra Institute of Technology" },
+        "address": { "@type": "PostalAddress", "addressLocality": "Chennai", "addressRegion": "Tamil Nadu", "addressCountry": "IN" },
+        "knowsAbout": ["Angular", "TypeScript", "Node.js", "Express.js", "MongoDB", "MySQL", "MS SQL Server"],
+        "sameAs": ["https://github.com/balavoffici", "https://linkedin.com/in/balavoffici", "https://instagram.com/balavoffici"]
+      }
+    </script>
+
+    <!-- Before first paint: the `js` gate for the hero entrance, and the
+         preloader once per visit. Safety timers lift both if the app
+         never boots, so content is never stranded behind them. -->
+    <script>
+      (function () {
+        var root = document.documentElement;
+        root.classList.add('js');
+        var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        var seen = false;
+        try {
+          seen = !!sessionStorage.getItem('bb-intro');
+        } catch (e) {}
+        if (!reduced && !seen) {
+          root.classList.add('intro');
+          window.__introSafety = setTimeout(function () {
+            root.classList.remove('intro');
+          }, 7000);
+        }
+        setTimeout(function () {
+          root.classList.add('hero-ready');
+        }, 9000);
+      })();
+    </script>
+    <link rel="preload" as="image" href="/images/portrait.avif" type="image/avif" fetchpriority="high" />
+
+    <link rel="icon" href="favicon.ico" sizes="any" />
+    <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png" />
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png" />
+  </head>
+  <body>
+    <app-root></app-root>
+  </body>
+</html>

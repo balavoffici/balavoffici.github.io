@@ -1,0 +1,58 @@
+<section id="home" class="hero" #root aria-labelledby="hero-title">
+  <div class="hero-inner">
+    <div class="top">
+      <p class="coords" data-enter="fade">{{ profile.location }} · {{ profile.experience }} experience</p>
+    </div>
+
+    <h1 class="name" id="hero-title" data-enter="split">
+      <span class="name-line">Balavenkatesh</span>
+      <span class="name-line">B</span>
+    </h1>
+
+    <figure class="portrait" data-enter="clip">
+      <picture>
+        <source [srcset]="profile.photo.avif" type="image/avif" />
+        <img
+          [src]="profile.photo.jpg"
+          [width]="profile.photo.width"
+          [height]="profile.photo.height"
+          alt="Portrait of {{ profile.name }}"
+          fetchpriority="high"
+        />
+      </picture>
+    </figure>
+
+    <div class="rule" data-enter="line" aria-hidden="true"></div>
+
+    <div class="bottom">
+      <div class="lead">
+        <p class="role" data-enter="fade">
+          {{ profile.title }} — I build with
+          <span class="stack" aria-hidden="true">
+            <span class="stack-track">
+              @for (w of stack; track $index) {
+                <span class="stack-word">{{ w }}</span>
+              }
+            </span>
+          </span>
+          <span class="sr-only">{{ stack.slice(0, -1).join(', ') }}</span>
+        </p>
+        <p class="tagline" data-enter="fade">{{ profile.tagline }}.</p>
+      </div>
+
+      <div class="cta" data-enter="fade">
+        <a class="btn btn-primary" href="#projects" appMagnetic (click)="$event.preventDefault(); motion.scrollTo('#projects')">
+          View projects <app-icon name="arrow" />
+        </a>
+        <a class="btn btn-ghost" [href]="profile.resume" download appMagnetic>
+          Résumé <app-icon name="download" />
+        </a>
+      </div>
+    </div>
+
+    <a class="scroll-cue" href="#about" data-enter="fade" (click)="$event.preventDefault(); motion.scrollTo('#about')">
+      <span>Scroll</span>
+      <i aria-hidden="true"></i>
+    </a>
+  </div>
+</section>
