@@ -32,7 +32,7 @@ import { skillGroups } from '../portfolio.data';
 
       <div class="container groups">
         @for (group of skillGroups; track group.title) {
-          <article class="group glass" tilt reveal="up" [revealDelay]="$index * 120">
+          <article class="group glass" reveal="up" [revealDelay]="$index * 120">
             <span class="group-icon"><app-icon [name]="group.icon" /></span>
             <h3>{{ group.title }}</h3>
             <ul class="tag-list">
@@ -54,7 +54,6 @@ import { skillGroups } from '../portfolio.data';
       display: grid;
       gap: 0.5rem;
       margin-block: 0 clamp(3rem, 6vw, 5rem);
-      rotate: -2deg;
       mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
     }
 
@@ -72,30 +71,35 @@ import { skillGroups } from '../portfolio.data';
       display: flex;
       align-items: center;
       padding-right: clamp(1.5rem, 3vw, 3rem);
-      font-size: clamp(2.6rem, 8vw, 6.5rem);
-      font-weight: 820;
-      letter-spacing: -0.05em;
-      line-height: 1.1;
+      font-family: var(--font-display);
+      font-size: clamp(2rem, 5vw, 4rem);
+      font-weight: 400;
+      font-variant-numeric: lining-nums;
+      line-height: 1.2;
       white-space: nowrap;
       color: transparent;
-      -webkit-text-stroke: 1px var(--border-strong);
+      -webkit-text-stroke: 1px var(--border);
       transition: color 0.4s, -webkit-text-stroke-color 0.4s;
     }
 
     .run li::after {
-      content: '✦';
+      content: '';
+      width: 0.12em;
+      height: 0.12em;
       margin-left: clamp(1.5rem, 3vw, 3rem);
-      font-size: 0.32em;
+      border-radius: 50%;
+      background: var(--brand);
       color: var(--brand);
       -webkit-text-stroke: 0;
     }
 
     .marquee:not(.reverse) .run li:nth-child(3n + 1) {
-      color: var(--text);
+      color: var(--text-2);
       -webkit-text-stroke-color: transparent;
     }
 
     .reverse .run li:nth-child(3n + 2) {
+      font-style: italic;
       background: var(--grad);
       -webkit-background-clip: text;
       background-clip: text;
@@ -104,12 +108,12 @@ import { skillGroups } from '../portfolio.data';
 
     @media (prefers-reduced-motion: no-preference) {
       .marquee {
-        animation: slide 45s linear infinite;
+        animation: slide 90s linear infinite;
       }
 
       .marquee.reverse {
         animation-direction: reverse;
-        animation-duration: 55s;
+        animation-duration: 110s;
       }
     }
 
@@ -132,21 +136,19 @@ import { skillGroups } from '../portfolio.data';
     .group-icon {
       display: grid;
       place-items: center;
-      width: 3.2rem;
-      height: 3.2rem;
-      margin-bottom: 1.4rem;
-      border-radius: 16px;
-      font-size: 1.2rem;
-      color: var(--on-brand);
-      background: var(--grad);
-      box-shadow: 0 10px 30px -8px var(--brand);
+      width: 3rem;
+      height: 3rem;
+      margin-bottom: 1.6rem;
+      border: 1px solid var(--hairline);
+      border-radius: 50%;
+      font-size: 1.1rem;
+      color: var(--brand);
     }
 
     h3 {
-      margin-bottom: 1.1rem;
-      font-size: 1.2rem;
-      font-weight: 680;
-      letter-spacing: -0.02em;
+      margin-bottom: 1.2rem;
+      font-size: 1.7rem;
+      font-weight: 500;
     }
 
     @media (max-width: 900px) {

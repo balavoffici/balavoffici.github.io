@@ -31,12 +31,12 @@ import { experience, profile } from '../portfolio.data';
             </p>
 
             <div class="facts">
-              <article class="fact glass" tilt reveal [revealDelay]="0">
+              <article class="fact glass" reveal [revealDelay]="0">
                 <app-icon name="briefcase" class="fact-icon" />
                 <strong>{{ current.title }}</strong>
                 <span>at {{ current.company }}</span>
               </article>
-              <article class="fact glass" tilt reveal [revealDelay]="120">
+              <article class="fact glass" reveal [revealDelay]="120">
                 <app-icon name="pin" class="fact-icon" />
                 <strong>{{ profile.location }}</strong>
                 <span>Based in India</span>
@@ -59,10 +59,10 @@ import { experience, profile } from '../portfolio.data';
       position: sticky;
       top: 7rem;
       overflow: hidden;
-      border-radius: var(--radius-lg);
+      border-radius: var(--radius);
       /* Matches the photo's own backdrop so its edges disappear */
       background: #faf9f7;
-      box-shadow: var(--shadow-glow);
+      box-shadow: var(--shadow);
     }
 
     .portrait picture {
@@ -84,10 +84,11 @@ import { experience, profile } from '../portfolio.data';
     /* Each word brightens as the paragraph scrolls through the viewport (--p from scrollProgress) */
     .lit {
       --lit: calc((var(--p, 1) - 0.12) / 0.42);
-      font-size: clamp(1.35rem, 2.6vw, 2.15rem);
-      font-weight: 560;
-      line-height: 1.45;
-      letter-spacing: -0.02em;
+      font-family: var(--font-display);
+      font-variant-numeric: lining-nums;
+      font-size: clamp(1.6rem, 3vw, 2.5rem);
+      font-weight: 400;
+      line-height: 1.35;
     }
 
     /* Unlit words use --text-3, which still meets contrast, so the paragraph stays readable throughout */
@@ -117,14 +118,15 @@ import { experience, profile } from '../portfolio.data';
 
     .fact-icon {
       margin-bottom: 1.4rem;
-      font-size: 1.3rem;
+      font-size: 1.2rem;
       color: var(--brand);
     }
 
     .fact strong {
-      font-size: 1.15rem;
-      font-weight: 650;
-      letter-spacing: -0.02em;
+      font-family: var(--font-display);
+      font-size: 1.5rem;
+      font-weight: 500;
+      line-height: 1.2;
     }
 
     .fact span {

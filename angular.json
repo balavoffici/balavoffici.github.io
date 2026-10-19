@@ -26,6 +26,10 @@
             "styles": [
               "@fontsource-variable/geist/index.css",
               "@fontsource-variable/geist-mono/index.css",
+              "@fontsource/cormorant-garamond/400.css",
+              "@fontsource/cormorant-garamond/500.css",
+              "@fontsource/cormorant-garamond/400-italic.css",
+              "@fontsource/cormorant-garamond/500-italic.css",
               "src/styles.css"
             ],
             "scripts": [],

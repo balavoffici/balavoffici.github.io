@@ -14,15 +14,15 @@ import { profile, socialLinks } from '../portfolio.data';
           <div class="aura" aria-hidden="true"></div>
 
           <h2 class="title">
-            <span class="line" reveal="mask">Let's build something</span>
+            <span class="line" reveal="mask">Let’s build something</span>
             <span class="line grad-text" reveal="mask" [revealDelay]="150">great together.</span>
           </h2>
           <p class="text" reveal="blur" [revealDelay]="300">
-            Feel free to reach out for any queries or to connect. I'm always happy to help!
+            Have a project in mind, or a role to talk through? I’d be glad to hear from you.
           </p>
 
           <div class="actions" reveal="up" [revealDelay]="420">
-            <a class="btn btn-primary btn-xl" [href]="'mailto:' + profile.email" magnetic="0.2">
+            <a class="btn btn-primary btn-xl btn-email" [href]="'mailto:' + profile.email" magnetic="0.2">
               <app-icon name="mail" />
               {{ profile.email }}
             </a>
@@ -62,10 +62,10 @@ import { profile, socialLinks } from '../portfolio.data';
       overflow: hidden;
       padding: clamp(3rem, 9vw, 7rem) clamp(1.25rem, 5vw, 4rem);
       border: 1px solid var(--border);
-      border-radius: clamp(24px, 4vw, 44px);
+      border-color: var(--hairline);
+      border-radius: var(--radius-lg);
       background: var(--bg-elev);
       text-align: center;
-      box-shadow: var(--shadow);
     }
 
     /* Slowly turning conic light behind the copy (a rotating layer, so it stays on the GPU) */
@@ -77,16 +77,15 @@ import { profile, socialLinks } from '../portfolio.data';
       width: max(160%, 900px);
       aspect-ratio: 1;
       translate: -50% -50%;
-      background: conic-gradient(transparent, color-mix(in oklab, var(--brand) 35%, transparent),
-          transparent 30%, color-mix(in oklab, var(--brand-2) 30%, transparent), transparent 60%,
-          color-mix(in oklab, var(--brand-3) 25%, transparent), transparent);
-      filter: blur(70px);
-      opacity: 0.8;
+      background: conic-gradient(transparent, color-mix(in oklab, var(--brand) 22%, transparent),
+          transparent 30%, color-mix(in oklab, var(--brand-2) 16%, transparent), transparent 60%);
+      filter: blur(80px);
+      opacity: 0.6;
     }
 
     @media (prefers-reduced-motion: no-preference) {
       .aura {
-        animation: turn 18s linear infinite;
+        animation: turn 40s linear infinite;
       }
     }
 
@@ -98,9 +97,9 @@ import { profile, socialLinks } from '../portfolio.data';
 
     .title {
       display: grid;
-      font-size: clamp(2.4rem, 7.5vw, 6.2rem);
-      font-weight: 820;
-      letter-spacing: -0.055em;
+      font-size: clamp(2.8rem, 8vw, 6.6rem);
+      font-weight: 400;
+      letter-spacing: -0.015em;
       line-height: 1;
     }
 
@@ -125,9 +124,16 @@ import { profile, socialLinks } from '../portfolio.data';
     }
 
     .btn-xl {
-      min-height: 3.75rem;
-      padding-inline: 1.9rem;
-      font-size: 1.02rem;
+      min-height: 3.6rem;
+      padding-inline: 2rem;
+      font-size: 0.74rem;
+    }
+
+    /* An email address reads wrong in capitals */
+    .btn-email {
+      font-size: 0.95rem;
+      letter-spacing: 0.01em;
+      text-transform: none;
     }
 
     .sr-status {
@@ -176,9 +182,8 @@ import { profile, socialLinks } from '../portfolio.data';
       padding: 0.55rem 1.05rem;
       border: 1px solid var(--border);
       border-radius: 999px;
-      background: var(--glass);
-      font-size: 0.92rem;
-      font-weight: 500;
+      font-size: 0.86rem;
+      font-weight: 400;
     }
 
     .out {
@@ -189,7 +194,8 @@ import { profile, socialLinks } from '../portfolio.data';
 
     @media (hover: hover) {
       .social:hover {
-        border-color: var(--brand);
+        border-color: var(--hairline);
+        color: var(--brand);
       }
 
       .social:hover .out {

@@ -16,7 +16,7 @@ import { education } from '../portfolio.data';
 
         <ol class="cards">
           @for (item of education; track item.degree) {
-            <li class="card glass" tilt reveal="up" [revealDelay]="$index * 120">
+            <li class="card glass" reveal="up" [revealDelay]="$index * 120">
               <div class="top">
                 <span class="icon"><app-icon name="cap" /></span>
                 <span class="chip">{{ item.period }}</span>
@@ -54,25 +54,23 @@ import { education } from '../portfolio.data';
       place-items: center;
       width: 2.8rem;
       height: 2.8rem;
-      border-radius: 14px;
-      font-size: 1.1rem;
+      border: 1px solid var(--hairline);
+      border-radius: 50%;
+      font-size: 1.05rem;
       color: var(--brand);
-      background: color-mix(in oklab, var(--brand) 14%, transparent);
     }
 
     .type {
-      font-family: var(--font-mono);
-      font-size: 0.75rem;
-      letter-spacing: 0.1em;
+      font-size: 0.68rem;
+      letter-spacing: 0.16em;
       text-transform: uppercase;
       color: var(--text-3);
     }
 
     h3 {
-      margin-top: 0.4rem;
-      font-size: 1.3rem;
-      font-weight: 700;
-      letter-spacing: -0.025em;
+      margin-top: 0.5rem;
+      font-size: 1.85rem;
+      font-weight: 500;
     }
 
     .school {

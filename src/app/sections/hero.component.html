@@ -4,7 +4,6 @@
     @defer (on idle) {
       <app-shader-bg />
     }
-    <div class="grid"></div>
     <div class="fade"></div>
   </div>
 
@@ -15,7 +14,7 @@
         {{ profile.title }} · {{ profile.location }}
       </p>
 
-      <p class="hello">Hi, I'm</p>
+      <p class="hello">Hi, I’m</p>
       <h1 class="name" [attr.aria-label]="profile.name">
         @for (word of nameWords; track $index) {
           <span class="word" aria-hidden="true">
@@ -62,30 +61,30 @@
           </li>
         }
       </ul>
+
+      <dl class="figures">
+        <div>
+          <dt>Years experience</dt>
+          <dd><span [countUp]="years" countAfterIntro>{{ years }}</span>+</dd>
+        </div>
+        <div>
+          <dt>Technologies</dt>
+          <dd><span [countUp]="techCount" countAfterIntro>{{ techCount }}</span>+</dd>
+        </div>
+        <div>
+          <dt>Featured projects</dt>
+          <dd><span [countUp]="projectCount" countAfterIntro>{{ projectCount }}</span></dd>
+        </div>
+      </dl>
     </div>
 
     <div class="visual">
-      <div class="frame" tilt="7">
+      <div class="frame">
         <picture>
           <source [srcset]="profile.photo.avif" type="image/avif">
           <img [src]="profile.photo.jpg" [alt]="profile.name" [width]="profile.photo.width"
             [height]="profile.photo.height" fetchpriority="high" decoding="async" class="photo">
         </picture>
-        <div class="scan" aria-hidden="true"></div>
-      </div>
-      <div class="orbit" aria-hidden="true"></div>
-
-      <div class="stat glass s1" role="img" [attr.aria-label]="years + '+ years experience'">
-        <strong><span [countUp]="years" countAfterIntro>{{ years }}</span>+</strong>
-        <span>Years experience</span>
-      </div>
-      <div class="stat glass s2" role="img" [attr.aria-label]="techCount + '+ technologies'">
-        <strong><span [countUp]="techCount" countAfterIntro>{{ techCount }}</span>+</strong>
-        <span>Technologies</span>
-      </div>
-      <div class="stat glass s3" role="img" [attr.aria-label]="projectCount + '+ featured projects'">
-        <strong><span [countUp]="projectCount" countAfterIntro>{{ projectCount }}</span>+</strong>
-        <span>Featured projects</span>
       </div>
     </div>
   </div>

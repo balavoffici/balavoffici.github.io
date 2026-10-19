@@ -60,41 +60,6 @@ export class MagneticDirective {
   }
 }
 
-/** 3D tilt toward the cursor with a moving glare; `--rx/--ry/--gx/--gy` are consumed in styles.css */
-@Directive({
-  selector: '[tilt]',
-  host: {
-    '(pointermove)': 'move($event)',
-    '(pointerleave)': 'reset()',
-  },
-})
-export class TiltDirective {
-  readonly tilt = input(8, { transform: (value: unknown) => numberAttribute(value, 8) });
-  private readonly element = inject<ElementRef<HTMLElement>>(ElementRef).nativeElement;
-
-  move(event: PointerEvent) {
-    if (event.pointerType !== 'mouse') {
-      return;
-    }
-    const rect = this.element.getBoundingClientRect();
-    const x = (event.clientX - rect.left) / rect.width;
-    const y = (event.clientY - rect.top) / rect.height;
-    const max = this.tilt();
-    this.element.style.setProperty('--rx', `${(0.5 - y) * max}deg`);
-    this.element.style.setProperty('--ry', `${(x - 0.5) * max}deg`);
-    this.element.style.setProperty('--gx', `${x * 100}%`);
-    this.element.style.setProperty('--gy', `${y * 100}%`);
-    this.element.classList.add('tilting');
-  }
-
-  reset() {
-    for (const prop of ['--rx', '--ry', '--gx', '--gy']) {
-      this.element.style.removeProperty(prop);
-    }
-    this.element.classList.remove('tilting');
-  }
-}
-
 /**
  * Writes the host's scroll progress (0–1) to `--p` for CSS to animate against.
  * `view`: from the host's top entering the viewport to its bottom leaving it.
@@ -180,4 +145,4 @@ export class CountUpDirective {
   }
 }
 
-export const MOTION = [RevealDirective, MagneticDirective, TiltDirective, ScrollProgressDirective, CountUpDirective];
+export const MOTION = [RevealDirective, MagneticDirective, ScrollProgressDirective, CountUpDirective];

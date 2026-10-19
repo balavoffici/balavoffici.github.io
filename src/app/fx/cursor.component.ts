@@ -138,7 +138,7 @@ export class CursorComponent {
       };
 
       const onOver = (event: PointerEvent) => {
-        const target = (event.target as Element).closest<HTMLElement>('a, button, [data-cursor], [tilt]');
+        const target = (event.target as Element).closest<HTMLElement>('a, button, [data-cursor]');
         this.hovering.set(!!target);
         this.label.set(target?.dataset['cursor'] ?? '');
       };

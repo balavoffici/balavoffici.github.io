@@ -16,9 +16,10 @@
   --brand-3: #7a5a0c;
   --on-brand: #ffffff;
   --glow: rgb(201 162 39 / 0.22);
-  --grain-opacity: 0.05;
-  --shadow: 0 1px 2px rgb(0 0 0 / 0.05), 0 20px 50px -20px rgb(0 0 0 / 0.2);
-  --shadow-glow: 0 30px 80px -30px rgb(154 116 20 / 0.45);
+  --grain-opacity: 0.025;
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.04), 0 24px 60px -32px rgb(0 0 0 / 0.18);
+  --shadow-glow: 0 40px 90px -50px rgb(154 116 20 / 0.45);
+  --hairline: color-mix(in oklab, var(--brand) 35%, transparent);
 
   /* Shader palette (hero nebula) */
   --fx-bg: #ffffff;
@@ -26,11 +27,13 @@
   --fx-2: #faf1d6;
   --fx-3: #e6cd85;
 
-  --grad: linear-gradient(100deg, var(--brand), var(--brand-2) 50%, var(--brand-3));
-  --radius: 22px;
-  --radius-lg: 32px;
+  /* Metallic sweep: deep gold into a pale highlight and back */
+  --grad: linear-gradient(100deg, var(--brand-3), var(--brand-2) 45%, var(--brand) 70%, var(--brand-3));
+  --radius: 14px;
+  --radius-lg: 20px;
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-cine: cubic-bezier(0.76, 0, 0.24, 1);
+  --font-display: 'Cormorant Garamond', 'Cormorant', Garamond, 'Times New Roman', serif;
   --font-sans: 'Geist Variable', 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   --font-mono: 'Geist Mono Variable', 'Geist Mono', ui-monospace, SFMono-Regular, Menlo, monospace;
   --container: min(1240px, 100% - clamp(2rem, 6vw, 5rem));
@@ -52,9 +55,10 @@
   --brand-3: #b8860b;
   --on-brand: #000000;
   --glow: rgb(212 175 55 / 0.28);
-  --grain-opacity: 0.07;
-  --shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 30px 60px -25px rgb(0 0 0 / 0.8);
-  --shadow-glow: 0 30px 90px -30px rgb(212 175 55 / 0.5);
+  --grain-opacity: 0.04;
+  --shadow: 0 1px 2px rgb(0 0 0 / 0.4), 0 30px 70px -35px rgb(0 0 0 / 0.9);
+  --shadow-glow: 0 40px 100px -50px rgb(212 175 55 / 0.4);
+  --hairline: color-mix(in oklab, var(--brand) 32%, transparent);
 
   --fx-bg: #000000;
   --fx-1: #4a3608;
@@ -110,7 +114,8 @@ html {
 body {
   min-height: 100svh;
   font-family: var(--font-sans);
-  line-height: 1.6;
+  font-weight: 350;
+  line-height: 1.7;
   color: var(--text);
   background: var(--bg);
   overflow-x: clip;
@@ -149,10 +154,15 @@ ol {
   list-style: none;
 }
 
+/* Headings are set in a classic serif at regular weight: elegance comes from size and space, not boldness */
 h1,
 h2,
 h3 {
+  font-family: var(--font-display);
+  font-weight: 500;
+  font-variant-numeric: lining-nums;
   line-height: 1.05;
+  letter-spacing: -0.01em;
   text-wrap: balance;
 }
 
@@ -224,9 +234,10 @@ body::after {
 }
 
 .section-title {
-  font-size: clamp(2.4rem, 6.4vw, 5.2rem);
-  font-weight: 760;
-  letter-spacing: -0.045em;
+  font-size: clamp(2.8rem, 6.6vw, 5.6rem);
+  font-weight: 400;
+  letter-spacing: -0.015em;
+  line-height: 1;
 }
 
 .section-lede {
@@ -237,6 +248,7 @@ body::after {
 }
 
 .grad-text {
+  font-style: italic;
   background: var(--grad);
   -webkit-background-clip: text;
   background-clip: text;
@@ -251,10 +263,12 @@ body::after {
   justify-content: center;
   gap: 0.6rem;
   min-height: 3.25rem;
-  padding: 0.85rem 1.6rem;
+  padding: 0.85rem 1.9rem;
   border-radius: 999px;
-  font-weight: 600;
-  font-size: 0.97rem;
+  font-weight: 500;
+  font-size: 0.78rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
   white-space: nowrap;
   isolation: isolate;
   overflow: hidden;
@@ -262,18 +276,17 @@ body::after {
 }
 
 .btn-primary {
-  color: var(--bg);
-  background: var(--text);
-  box-shadow: var(--shadow);
+  color: var(--on-brand);
+  background: var(--brand);
 }
 
-/* Liquid fill that rises from the bottom on hover */
+/* Fill that rises from the bottom on hover */
 .btn-primary::before {
   content: '';
   position: absolute;
   inset: 0;
   z-index: -1;
-  background: var(--grad);
+  background: var(--text);
   transform: translateY(101%);
   border-radius: inherit;
   transition: transform 0.6s var(--ease-cine);
@@ -281,15 +294,11 @@ body::after {
 
 .btn-ghost {
   border: 1px solid var(--border-strong);
-  background: var(--glass);
-  -webkit-backdrop-filter: blur(14px);
-  backdrop-filter: blur(14px);
 }
 
 @media (hover: hover) {
   .btn-primary:hover {
-    color: var(--on-brand);
-    box-shadow: var(--shadow-glow);
+    color: var(--bg);
   }
 
   .btn-primary:hover::before {
@@ -298,6 +307,7 @@ body::after {
 
   .btn-ghost:hover {
     border-color: var(--brand);
+    color: var(--brand);
   }
 
   .btn:hover .btn-arrow {
@@ -327,14 +337,19 @@ body::after {
 }
 
 /* ─── Surfaces ───────────────────────────────────────────────────────── */
+/* Cards: a quiet panel with a hairline that warms to gold on hover */
 .glass {
   position: relative;
   border: 1px solid var(--border);
   border-radius: var(--radius);
-  background: var(--glass);
-  -webkit-backdrop-filter: blur(18px) saturate(150%);
-  backdrop-filter: blur(18px) saturate(150%);
-  box-shadow: var(--shadow);
+  background: color-mix(in oklab, var(--bg-elev) 80%, transparent);
+  transition: border-color 0.5s var(--ease-out), translate 0.6s var(--ease-out);
+}
+
+@media (hover: hover) {
+  .glass:hover {
+    border-color: var(--hairline);
+  }
 }
 
 .chip {
@@ -345,9 +360,9 @@ body::after {
   border: 1px solid var(--border);
   border-radius: 999px;
   font-family: var(--font-mono);
-  font-size: 0.78rem;
+  font-size: 0.72rem;
+  letter-spacing: 0.04em;
   color: var(--text-2);
-  background: var(--chip);
 }
 
 .tag-list {
@@ -357,26 +372,26 @@ body::after {
 }
 
 .tag-list li {
-  padding: 0.32rem 0.8rem;
+  padding: 0.3rem 0.85rem;
   border: 1px solid var(--border);
   border-radius: 999px;
-  font-size: 0.82rem;
-  font-weight: 500;
+  font-size: 0.78rem;
+  font-weight: 400;
+  letter-spacing: 0.02em;
   color: var(--text-2);
   transition: border-color 0.25s, color 0.25s, background-color 0.25s;
 }
 
 @media (hover: hover) {
   .tag-list li:hover {
-    border-color: var(--brand);
-    color: var(--text);
-    background: color-mix(in oklab, var(--brand) 12%, transparent);
+    border-color: var(--hairline);
+    color: var(--brand);
   }
 }
 
 .bullet-list {
   display: grid;
-  gap: 0.6rem;
+  gap: 0.55rem;
   color: var(--text-2);
   font-size: 0.97rem;
 }
@@ -386,51 +401,22 @@ body::after {
   padding-left: 1.6rem;
 }
 
+/* A short gold rule in place of a bullet */
 .bullet-list li::before {
   content: '';
   position: absolute;
-  left: 0.2rem;
-  top: 0.62em;
-  width: 0.48rem;
-  height: 0.48rem;
-  border-radius: 2px;
-  background: var(--grad);
-  rotate: 45deg;
-  box-shadow: 0 0 12px var(--glow);
+  left: 0;
+  top: 0.85em;
+  width: 0.85rem;
+  height: 1px;
+  background: var(--brand);
 }
 
 /* ─── Motion primitives ──────────────────────────────────────────────── */
 /* Magnetic: `translate` composes with any transform the element already has */
 [magnetic] {
   translate: var(--mx, 0) var(--my, 0);
-  transition: translate 0.6s var(--ease-out), box-shadow 0.4s var(--ease-out), border-color 0.3s, color 0.3s;
-}
-
-/* 3D tilt with glare (see TiltDirective) */
-[tilt] {
-  transform: perspective(1000px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg));
-  transform-style: preserve-3d;
-  transition: transform 0.7s var(--ease-out), border-color 0.3s, box-shadow 0.5s var(--ease-out);
-}
-
-[tilt].tilting {
-  transition: transform 0.12s linear, border-color 0.3s, box-shadow 0.5s var(--ease-out);
-}
-
-[tilt]::after {
-  content: '';
-  position: absolute;
-  inset: 0;
-  z-index: 2;
-  border-radius: inherit;
-  pointer-events: none;
-  background: radial-gradient(520px circle at var(--gx, 50%) var(--gy, 0%), color-mix(in oklab, var(--brand) 18%, transparent), transparent 55%);
-  opacity: 0;
-  transition: opacity 0.5s;
-}
-
-[tilt].tilting::after {
-  opacity: 1;
+  transition: translate 0.6s var(--ease-out), box-shadow 0.4s var(--ease-out), border-color 0.3s, color 0.4s;
 }
 
 /* Scroll reveals: hidden only when JS is running (html.js) and motion is welcome */

@@ -39,7 +39,6 @@
   height: 3rem;
   border: 1px solid var(--border-strong);
   border-radius: 50%;
-  background: var(--glass);
   color: var(--text);
   transition: border-color 0.25s, opacity 0.25s, background-color 0.25s;
 }
@@ -52,7 +51,7 @@
 @media (hover: hover) {
   .arrow:not(:disabled):hover {
     border-color: var(--brand);
-    background: color-mix(in oklab, var(--brand) 12%, transparent);
+    color: var(--brand);
   }
 }
 
@@ -102,12 +101,14 @@
 /* Oversized outline acronym behind the content */
 .glyph {
   position: absolute;
-  right: -0.04em;
-  bottom: -0.18em;
+  right: -0.02em;
+  bottom: -0.22em;
   z-index: -1;
-  font-size: clamp(6rem, 13vw, 10.5rem);
-  font-weight: 900;
-  letter-spacing: -0.06em;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: clamp(7rem, 15vw, 12rem);
+  font-weight: 400;
+  letter-spacing: -0.02em;
   line-height: 1;
   color: transparent;
   -webkit-text-stroke: 1px var(--border-strong);
@@ -118,7 +119,7 @@
 
 @media (hover: hover) {
   .project-card:hover .glyph {
-    -webkit-text-stroke-color: var(--brand);
+    -webkit-text-stroke-color: var(--hairline);
     translate: -10px 8px;
   }
 }
@@ -132,8 +133,10 @@
 }
 
 .company {
-  font-size: 0.85rem;
-  font-weight: 600;
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
   color: var(--brand);
 }
 
@@ -145,9 +148,9 @@
 
 .acronym {
   width: fit-content;
-  font-size: clamp(2.2rem, 4.5vw, 3.2rem);
-  font-weight: 800;
-  letter-spacing: -0.05em;
+  font-size: clamp(2.8rem, 5.5vw, 4rem);
+  font-weight: 500;
+  letter-spacing: 0;
   line-height: 1;
   background: var(--grad);
   -webkit-background-clip: text;
@@ -156,9 +159,8 @@
 }
 
 .full {
-  font-size: clamp(1.1rem, 1.8vw, 1.3rem);
-  font-weight: 650;
-  letter-spacing: -0.02em;
+  font-size: clamp(1.3rem, 2vw, 1.6rem);
+  font-weight: 400;
 }
 
 .description {
@@ -241,7 +243,7 @@
 
 .pinned .progress {
   display: block;
-  height: 2px;
+  height: 1px;
   margin-top: clamp(1rem, 3vh, 2rem);
   border-radius: 2px;
   background: var(--border);
@@ -254,5 +256,4 @@
   background: var(--grad);
   transform-origin: left;
   transform: scaleX(var(--p, 0));
-  box-shadow: 0 0 12px var(--brand);
 }

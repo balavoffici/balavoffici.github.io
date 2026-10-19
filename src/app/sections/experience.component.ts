@@ -11,7 +11,7 @@ import { experience } from '../portfolio.data';
     <section id="experience" class="section">
       <div class="container">
         <header class="section-head">
-          <h2 class="section-title" reveal="mask">Where I've <span class="grad-text">worked</span></h2>
+          <h2 class="section-title" reveal="mask">Where I’ve <span class="grad-text">worked</span></h2>
           <p class="section-lede" reveal="blur" [revealDelay]="150">
             From trainee to System Engineer — building Angular and Node.js products end to end.
           </p>
@@ -21,7 +21,7 @@ import { experience } from '../portfolio.data';
           @for (job of experience; track job.title + job.period; let i = $index) {
             <li class="item" reveal="right">
               <span class="node" aria-hidden="true"></span>
-              <article class="card glass" tilt="4">
+              <article class="card glass">
                 <div class="top">
                   <span class="chip">{{ job.period }}</span>
                   @if (i === 0) {
@@ -62,14 +62,12 @@ import { experience } from '../portfolio.data';
       left: 0.6rem;
       top: 0.5rem;
       bottom: 0.5rem;
-      width: 2px;
-      border-radius: 2px;
+      width: 1px;
       background: var(--border-strong);
     }
 
     .timeline::after {
-      background: linear-gradient(var(--brand), var(--brand-2), var(--brand-3));
-      box-shadow: 0 0 18px var(--brand), 0 0 40px var(--glow);
+      background: var(--brand);
       transform-origin: top;
       transform: scaleY(clamp(0, calc((var(--p, 1) - 0.2) * 1.9), 1));
     }
@@ -80,20 +78,19 @@ import { experience } from '../portfolio.data';
 
     .node {
       position: absolute;
-      left: calc(-1 * clamp(2.25rem, 5vw, 3.5rem) + 0.6rem + 1px);
-      top: 2rem;
-      width: 1.1rem;
-      height: 1.1rem;
+      left: calc(-1 * clamp(2.25rem, 5vw, 3.5rem) + 0.6rem + 0.5px);
+      top: 2.2rem;
+      width: 0.6rem;
+      height: 0.6rem;
       translate: -50% 0;
-      border: 3px solid var(--bg);
       border-radius: 50%;
       background: var(--border-strong);
       transition: background-color 0.6s 0.3s, box-shadow 0.6s 0.3s;
     }
 
     .item.in .node {
-      background: var(--brand-2);
-      box-shadow: 0 0 0 5px color-mix(in oklab, var(--brand-2) 22%, transparent), 0 0 24px var(--brand-2);
+      background: var(--brand);
+      box-shadow: 0 0 0 5px var(--bg), 0 0 0 6px var(--hairline);
     }
 
     .card {
@@ -112,9 +109,11 @@ import { experience } from '../portfolio.data';
       display: inline-flex;
       align-items: center;
       gap: 0.45rem;
-      font-size: 0.8rem;
-      font-weight: 600;
-      color: var(--brand-2);
+      font-size: 0.68rem;
+      font-weight: 400;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--brand);
     }
 
     .now-dot {
@@ -122,14 +121,12 @@ import { experience } from '../portfolio.data';
       height: 7px;
       border-radius: 50%;
       background: currentColor;
-      box-shadow: 0 0 10px currentColor;
     }
 
     .role {
-      margin-top: 1rem;
-      font-size: clamp(1.3rem, 2.4vw, 1.65rem);
-      font-weight: 700;
-      letter-spacing: -0.03em;
+      margin-top: 1.1rem;
+      font-size: clamp(1.7rem, 3vw, 2.3rem);
+      font-weight: 500;
     }
 
     .meta {
@@ -171,9 +168,7 @@ import { experience } from '../portfolio.data';
       }
 
       .node {
-        left: calc(-1.85rem + 0.35rem + 1px);
-        width: 0.95rem;
-        height: 0.95rem;
+        left: calc(-1.85rem + 0.35rem + 0.5px);
       }
     }
   `,
