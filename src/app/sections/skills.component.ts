@@ -137,7 +137,7 @@ import { skillGroups } from '../portfolio.data';
       margin-bottom: 1.4rem;
       border-radius: 16px;
       font-size: 1.2rem;
-      color: #fff;
+      color: var(--on-brand);
       background: var(--grad);
       box-shadow: 0 10px 30px -8px var(--brand);
     }

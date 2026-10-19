@@ -37,7 +37,7 @@
   left: 0;
   right: 0;
   height: 50.5%;
-  background: #05060a;
+  background: #000000;
   animation: part 0.75s var(--ease-cine) 1.5s forwards;
 }
 
@@ -63,7 +63,7 @@
   justify-items: center;
   gap: 1rem;
   padding-inline: 1.5rem;
-  color: #f2f3f8;
+  color: #ffffff;
   text-align: center;
   animation: titles-out 0.5s var(--ease-cine) 1.35s forwards;
 }
@@ -81,7 +81,7 @@
   font-size: 0.72rem;
   letter-spacing: 0.4em;
   text-transform: uppercase;
-  color: #868c9f;
+  color: #8c8c8c;
   animation: fade 0.8s ease 0.1s backwards;
 }
 
@@ -124,10 +124,10 @@
 .loader-line {
   flex: 1;
   height: 1px;
-  background: linear-gradient(90deg, #8f80ff, #2fd5ee, #f472b6);
+  background: linear-gradient(90deg, #b8860b, #f3d77c, #d4af37);
   transform-origin: left;
   animation: load 1.25s var(--ease-cine) 0.1s backwards;
-  box-shadow: 0 0 12px #8f80ff;
+  box-shadow: 0 0 12px #d4af37;
 }
 
 @keyframes load {
@@ -141,7 +141,7 @@
   font-family: var(--font-mono);
   font-size: 0.78rem;
   text-align: right;
-  color: #b6bbca;
+  color: #c9c9c9;
   counter-reset: n var(--intro-count);
   animation: count 1.25s var(--ease-cine) 0.1s forwards;
 }
