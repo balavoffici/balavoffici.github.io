@@ -86,9 +86,10 @@ import { experience, profile } from '../portfolio.data';
       --lit: calc((var(--p, 1) - 0.12) / 0.42);
       font-family: var(--font-display);
       font-variant-numeric: lining-nums;
-      font-size: clamp(1.6rem, 3vw, 2.5rem);
-      font-weight: 400;
-      line-height: 1.35;
+      font-size: clamp(1.25rem, 2.2vw, 1.8rem);
+      font-weight: 300;
+      line-height: 1.55;
+      letter-spacing: -0.015em;
     }
 
     /* Unlit words use --text-3, which still meets contrast, so the paragraph stays readable throughout */
@@ -124,9 +125,9 @@ import { experience, profile } from '../portfolio.data';
 
     .fact strong {
       font-family: var(--font-display);
-      font-size: 1.5rem;
+      font-size: 1.1rem;
       font-weight: 500;
-      line-height: 1.2;
+      line-height: 1.3;
     }
 
     .fact span {

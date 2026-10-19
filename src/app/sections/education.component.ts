@@ -69,7 +69,7 @@ import { education } from '../portfolio.data';
 
     h3 {
       margin-top: 0.5rem;
-      font-size: 1.85rem;
+      font-size: 1.3rem;
       font-weight: 500;
     }
 

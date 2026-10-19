@@ -106,22 +106,57 @@
   z-index: -1;
   font-family: var(--font-display);
   font-style: italic;
-  font-size: clamp(7rem, 15vw, 12rem);
-  font-weight: 400;
-  letter-spacing: -0.02em;
+  font-size: clamp(5.5rem, 11vw, 9rem);
+  font-weight: 300;
+  letter-spacing: -0.05em;
   line-height: 1;
   color: transparent;
   -webkit-text-stroke: 1px var(--border-strong);
   opacity: 0.45;
-  transition: -webkit-text-stroke-color 0.5s, translate 0.9s var(--ease-out);
+  transition:
+    -webkit-text-stroke-color 0.6s var(--ease-out),
+    color 0.6s var(--ease-out),
+    opacity 0.6s var(--ease-out),
+    text-shadow 0.8s var(--ease-out),
+    translate 0.9s var(--ease-out);
   pointer-events: none;
 }
 
+.project-card {
+  transition:
+    border-color 0.5s var(--ease-out),
+    box-shadow 0.7s var(--ease-out),
+    translate 0.6s var(--ease-out);
+}
+
+.project-card .tag-list li {
+  transition: border-color 0.4s var(--ease-out), color 0.4s var(--ease-out), background-color 0.4s var(--ease-out);
+}
+
 @media (hover: hover) {
+  /* Hover lights the card in gold: glowing glyph, gold border and tags */
   .project-card:hover .glyph {
-    -webkit-text-stroke-color: var(--hairline);
+    -webkit-text-stroke-color: var(--brand);
+    color: color-mix(in oklab, var(--brand) 10%, transparent);
+    text-shadow: 0 0 28px color-mix(in oklab, var(--brand) 35%, transparent);
+    opacity: 0.85;
     translate: -10px 8px;
   }
+}
+
+.project-card:hover,
+.project-card:focus-within {
+  border-color: color-mix(in oklab, var(--brand) 60%, transparent);
+  box-shadow:
+    0 24px 60px -28px color-mix(in oklab, var(--brand) 50%, transparent),
+    inset 0 1px 0 color-mix(in oklab, var(--brand-2) 25%, transparent);
+}
+
+.project-card:hover .tag-list li,
+.project-card:focus-within .tag-list li {
+  border-color: var(--hairline);
+  color: var(--brand);
+  background-color: color-mix(in oklab, var(--brand) 7%, transparent);
 }
 
 .card-top {
@@ -148,9 +183,9 @@
 
 .acronym {
   width: fit-content;
-  font-size: clamp(2.8rem, 5.5vw, 4rem);
-  font-weight: 500;
-  letter-spacing: 0;
+  font-size: clamp(2.2rem, 4.2vw, 3rem);
+  font-weight: 600;
+  letter-spacing: -0.04em;
   line-height: 1;
   background: var(--grad);
   -webkit-background-clip: text;
@@ -159,7 +194,7 @@
 }
 
 .full {
-  font-size: clamp(1.3rem, 2vw, 1.6rem);
+  font-size: clamp(1.02rem, 1.5vw, 1.2rem);
   font-weight: 400;
 }
 

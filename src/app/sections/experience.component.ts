@@ -125,8 +125,9 @@ import { experience } from '../portfolio.data';
 
     .role {
       margin-top: 1.1rem;
-      font-size: clamp(1.7rem, 3vw, 2.3rem);
+      font-size: clamp(1.25rem, 2.2vw, 1.6rem);
       font-weight: 500;
+      letter-spacing: -0.025em;
     }
 
     .meta {

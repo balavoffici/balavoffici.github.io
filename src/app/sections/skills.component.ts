@@ -72,8 +72,9 @@ import { skillGroups } from '../portfolio.data';
       align-items: center;
       padding-right: clamp(1.5rem, 3vw, 3rem);
       font-family: var(--font-display);
-      font-size: clamp(2rem, 5vw, 4rem);
-      font-weight: 400;
+      font-size: clamp(1.6rem, 3.8vw, 3rem);
+      font-weight: 300;
+      letter-spacing: -0.03em;
       font-variant-numeric: lining-nums;
       line-height: 1.2;
       white-space: nowrap;
@@ -147,7 +148,7 @@ import { skillGroups } from '../portfolio.data';
 
     h3 {
       margin-bottom: 1.2rem;
-      font-size: 1.7rem;
+      font-size: 1.2rem;
       font-weight: 500;
     }
 

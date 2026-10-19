@@ -97,10 +97,10 @@ import { profile, socialLinks } from '../portfolio.data';
 
     .title {
       display: grid;
-      font-size: clamp(2.8rem, 8vw, 6.6rem);
-      font-weight: 400;
-      letter-spacing: -0.015em;
-      line-height: 1;
+      font-size: clamp(2.1rem, 6vw, 4.8rem);
+      font-weight: 500;
+      letter-spacing: -0.04em;
+      line-height: 1.1;
     }
 
     .line {

@@ -61,21 +61,6 @@
           </li>
         }
       </ul>
-
-      <dl class="figures">
-        <div>
-          <dt>Years experience</dt>
-          <dd><span [countUp]="years" countAfterIntro>{{ years }}</span>+</dd>
-        </div>
-        <div>
-          <dt>Technologies</dt>
-          <dd><span [countUp]="techCount" countAfterIntro>{{ techCount }}</span>+</dd>
-        </div>
-        <div>
-          <dt>Featured projects</dt>
-          <dd><span [countUp]="projectCount" countAfterIntro>{{ projectCount }}</span></dd>
-        </div>
-      </dl>
     </div>
 
     <div class="visual">
@@ -85,6 +70,22 @@
           <img [src]="profile.photo.jpg" [alt]="profile.name" [width]="profile.photo.width"
             [height]="profile.photo.height" fetchpriority="high" decoding="async" class="photo">
         </picture>
+      </div>
+
+      <div class="stat glass s1" role="img" [attr.aria-label]="years + '+ years experience'">
+        <span class="stat-icon" aria-hidden="true"><app-icon name="briefcase" /></span>
+        <strong><span [countUp]="years" countAfterIntro>{{ years }}</span>+</strong>
+        <span>Years experience</span>
+      </div>
+      <div class="stat glass s2" role="img" [attr.aria-label]="techCount + '+ technologies'">
+        <span class="stat-icon" aria-hidden="true"><app-icon name="code" /></span>
+        <strong><span [countUp]="techCount" countAfterIntro>{{ techCount }}</span>+</strong>
+        <span>Technologies</span>
+      </div>
+      <div class="stat glass s3" role="img" [attr.aria-label]="projectCount + '+ featured projects'">
+        <span class="stat-icon" aria-hidden="true"><app-icon name="layers" /></span>
+        <strong><span [countUp]="projectCount" countAfterIntro>{{ projectCount }}</span>+</strong>
+        <span>Featured projects</span>
       </div>
     </div>
   </div>
